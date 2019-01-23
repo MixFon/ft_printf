@@ -198,18 +198,116 @@ t_format *ft_newstruct(void)
 }
 
 /*
+** Вывод целого числа со знаком в десятичной систем счисления.
+** Дополнить функциями.
+*/
+
+void ft_put_decimal(t_format *lst, va_list lst_arg)
+{
+	ft_putnbr(va_arg(lst_arg, int));
+}
+
+/*
+** Вывод целого числа без знака в шестнадцетеричной систем счисления.
+** Дополнить функциями.
+*/
+
+void ft_put_hexadecimal(t_format *lst, va_list lst_arg)
+{
+	ft_putnbr(va_arg(lst_arg, int));
+}
+
+/*
+** Вывод целого числа без знака в восьмеричной систем счисления.
+** Дополнить функциями. Можно ли исправить int??
+*/
+
+void ft_put_octal(t_format *lst, va_list lst_arg)
+{
+	//ft_putchar((char)va_arg(lst_arg, int));
+}
+
+/*
+** Вывод целого числа без знака в восьмеричной систем счисления.
+** Дополнить функциями. Можно ли исправить int??
+*/
+
+void ft_put_foat(t_format *lst, va_list lst_arg)
+{
+	//ft_putchar((char)va_arg(lst_arg, int));
+}
+
+/*
+** Вывод целого числа без знака в десятичной систем счисления.
+** Дополнить функциями. Можно ли исправить int??
+*/
+
+void ft_put_unsigned(t_format *lst, va_list lst_arg)
+{
+	//ft_putchar((char)va_arg(lst_arg, int));
+}
+
+/*
+** Выводит на печать форматированную строку.
+** Дополнить функциями.
+*/
+
+void ft_put_string(t_format *lst, va_list lst_arg)
+{
+	ft_putstr(va_arg(lst_arg, char *));
+}
+
+/*
+** Вывод символа, соответстветсвующего числу указанному в аргументе функции.
+** Дополнить функциями. Можно ли исправить int??
+*/
+
+void ft_put_char(t_format *lst, va_list lst_arg)
+{
+	ft_putchar((char)va_arg(lst_arg, int));
+}
+
+/*
+** Распределяет строку, согдласно типу.
+** Типы: c,s,p,d,i,o,u,x,X,f,%
+*/
+
+int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
+{
+	if (*iter == 'i' || *iter == 'd')
+		ft_put_decimal(lst, lst_arg);
+	if (*iter == 'x' || *iter == 'X')
+		ft_put_hexadecimal(lst, lst_arg);
+	if (*iter == 'o')
+		ft_put_octal(lst, lst_arg);
+	if (*iter == 'f')
+		ft_put_foat(lst, lst_arg);
+	if (*iter == 'u')
+		ft_put_unsigned(lst, lst_arg);
+	if (*iter == 's')
+		ft_put_string(lst, lst_arg);
+	if (*iter == 'c')
+		ft_put_char(lst, lst_arg);
+	return (1111); //Поправить!
+}
+
+/*
 ** Считывает флаги и вызывает функцию, соответствуюшую типу
 */
 
 int ft_sort_arg(char *iter, va_list lst_arg)
 {
-	t_format *lst;
+	t_format	*lst;
+	int			i;		//Использует для пропускания символов формата
+	char		*ptr;
 
+	ptr = iter;
 	lst = ft_newstruct();
-	ft_read_format(iter, lst, lst_arg);
+	ptr += ft_read_format(iter, lst, lst_arg);
+	ft_sotr_type(ptr, lst, lst_arg);
 	ft_putlst(lst);
 	free(lst);
-	return (1);
+	return (i);
 }
 
 /*
@@ -242,6 +340,6 @@ int main()
 
 	b = "asdf";
 	a = 'E';
-	ft_printf("Hello%#0.*llcdsdf%-*.8Lc1H22",122, 23, a);
+	ft_printf("Hello\n%#5.3iH\n%+0.7c", 111, 'Y');
 	return 0;
 }

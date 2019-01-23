@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 /*
 ** Проверяет, является ли символ специальным символом флага.
@@ -198,13 +199,107 @@ t_format *ft_newstruct(void)
 }
 
 /*
+** Создание новой строки, заполненую нужным символом.
+*/
+
+char *ft_strnew_char(int c, size_t len)
+{	
+	char *ptr;
+
+	ptr = ft_strnew(len);
+	ptr =(char *)ft_memset((char *)ptr, c, len);
+	return (ptr);
+
+}
+
+/*
+** Копирование str1 в str2 с конца обеих строк, если str2 больше.
+*/
+
+char *ft_cop_str_right(char *str1, char *str2)
+{
+	int	len1;
+	int	len2;
+
+	len1 = ft_strlen(str1);
+	len2 = ft_strlen(str2);
+	if (len1 >= len2)
+	{
+		ft_strdel(&str2);
+		return (str1);
+	}
+	else 
+	{
+		while (len2 >= 0 && len1 >= 0)
+		{
+			str2[len2] = str1[len1];
+			len2--;
+			len1--;
+		}
+		ft_strdel(&str1);
+		return (str2);
+	}
+}
+
+/*
+** Копирование str2 в str1 с начала обеих строк.
+*/
+
+char *ft_cop_str_left(char *str1, char *str2)
+{
+	int	len1;
+	int	len2;
+	int i;
+
+	i = 0;
+	len1 = ft_strlen(str1);
+	len2 = ft_strlen(str2);
+	if (len1 >= len2)
+	{
+		ft_strdel(&str2);
+		return (str1);
+	}
+	else 
+	{
+		while (i < len1 && i < len2)
+		{
+			str2[i] = str1[i];
+			i++;
+		}
+		ft_strdel(&str1);
+		return (str2);
+	}
+}
+
+/*
 ** Вывод целого числа со знаком в десятичной систем счисления.
-** Дополнить функциями.
+** Дополнить функциями. Проверить на утечки ft_itoa and ft_strnew.
 */
 
 void ft_put_decimal(t_format *lst, va_list lst_arg)
 {
-	ft_putnbr(va_arg(lst_arg, int));
+	char	*str_wid;
+	char	*str_exa;
+	char	*str;
+
+	str_wid = ft_strnew_char(' ', lst->width);
+	ft_putendl(str_wid);
+	str_exa = ft_strnew_char('0', lst->exactness);
+	ft_putendl(str_exa);
+	str = ft_itoa(va_arg(lst_arg, int));
+	ft_putendl(str);
+	str = ft_cop_str_right(str, str_exa);
+	ft_putendl(str);
+	if (lst->flag == '-')
+		str = ft_cop_str_left(str, str_wid);
+	else
+		str = ft_cop_str_right(str, str_wid);
+	ft_putendl(str);
+	
+	//size = (ft_strlen(str) > lst->exactness ? ft_strlen(str) : lst->exactness);
+	//ft_putnbr(size);
+//	while (
+	//ft_putnbr(va_arg(lst_arg, int));
 }
 
 /*
@@ -340,6 +435,7 @@ int main()
 
 	b = "asdf";
 	a = 'E';
-	ft_printf("Hello\n%#5.3iH\n%+0.7c", 111, 'Y');
+	ft_printf("Hello\n%07iH\n", 11111);
+	printf("Hello\n%07iH\n", 11111);
 	return 0;
 }

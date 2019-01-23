@@ -21,7 +21,7 @@ typedef struct	s_format
 	char		flag;
 	int			width;
 	int			exactness;
-	char		size[2];	
+	char		size[3];	
 }				t_format;
 
 #endif

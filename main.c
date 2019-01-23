@@ -43,6 +43,14 @@ int	ft_istype(char c)
 ** h, hh, l, ll, L
 */
 
+int	ft_issize(char c)
+{
+	if (c == 'l' || c == 'h' || c == 'L')
+		return (1);
+	else
+		return (0);
+}
+
 /*
 ** Считывает поле "ширина" (width) и записывает значение в структуру.
 ** Возваращает колличество считанных символов. 
@@ -106,6 +114,28 @@ int	ft_read_flag(char *c, t_format *lst)
 }
 
 /*
+** Считывает поле "размер" (size) и записывает флаг в структуру
+** Возваращает колличество считанных символов. 
+** h, hh, l, ll, L
+*/
+
+int	ft_read_size(char *c, t_format *lst)
+{
+	if (ft_issize(*c) && ft_issize(*(c + 1)))
+	{
+		lst->size[0] = *c;
+		lst->size[1] = *(c + 1);
+		return (2);
+	}
+	if (ft_issize(*c))
+	{
+		lst->size[0] = *c;
+		return (1);
+	}
+	return (0);
+}
+
+/*
 ** Читает формат и записывает его в струкруру. Возвращает колличество прочитан-
 ** ных символов.
 */
@@ -118,11 +148,13 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 	while (!ft_istype(*c))
 	{
 		if (ft_isflag(*c) && !lst->flag)
-			ft_read_flag(c, lst);
+			c += ft_read_flag(c, lst);
 		if (ft_isdigit(*c) || *c == '*')
 			c += ft_read_width(c, lst, lst_arg);	
 		if (*c == '.')
 			c += ft_read_exact((c + 1), lst, lst_arg);	
+		if (ft_issize(*c))
+			c += ft_read_size(c , lst);
 		if (!ft_istype(*c))
 		c++;
 	}
@@ -143,6 +175,7 @@ void ft_putlst(t_format *lst)
 	ft_putnbr(lst->exactness);
 	ft_putstr("\n");
 	ft_putstr(lst->size);
+	ft_putstr("\n");
 }
 
 /*
@@ -160,6 +193,7 @@ t_format *ft_newstruct(void)
 	lst->exactness = 0;
 	lst->size[0] = '\0';
 	lst->size[1] = '\0';
+	lst->size[2] = '\0';
 	return (lst);
 }
 
@@ -208,6 +242,6 @@ int main()
 
 	b = "asdf";
 	a = 'E';
-	ft_printf("Hello%0.*c1H22",122, a);
+	ft_printf("Hello%#0.*llcdsdf%-*.8Lc1H22",122, 23, a);
 	return 0;
 }

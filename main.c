@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/22 17:55:36 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/01/24 11:27:41 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ char *ft_strnew_char(int c, size_t len)
 	ptr = ft_strnew(len);
 	ptr =(char *)ft_memset((char *)ptr, c, len);
 	return (ptr);
-
 }
 
 /*
@@ -230,12 +229,13 @@ char *ft_cop_str_right(char *str1, char *str2)
 	}
 	else 
 	{
-		while (len2 >= 0 && len1 >= 0)
+		if (str1[0] == '-' && str2[0] == '0')
 		{
-			str2[len2] = str1[len1];
-			len2--;
-			len1--;
+			str1[0] = '0';
+			str2[0] = '-';
 		}
+		while (len2 >= 0 && len1 >= 0)
+			str2[len2--] = str1[len1--];
 		ft_strdel(&str1);
 		return (str2);
 	}
@@ -272,21 +272,23 @@ char *ft_cop_str_left(char *str1, char *str2)
 }
 
 /*
-** Вывод целого числа со знаком в десятичной систем счисления.
-** Дополнить функциями. Проверить на утечки ft_itoa and ft_strnew.
+** Вывдит отрицательное десятичное число
 */
 
-void ft_put_decimal(t_format *lst, va_list lst_arg)
+void ft_negative_decimal(t_format *lst, int arg)
 {
 	char	*str_wid;
 	char	*str_exa;
 	char	*str;
 
-	str_wid = ft_strnew_char(' ', lst->width);
+	if (lst->flag == '0' && lst->exactness == 0)
+		str_wid = ft_strnew_char('0', lst->width + 1);
+	else 
+		str_wid = ft_strnew_char(' ', lst->width);
 	ft_putendl(str_wid);
-	str_exa = ft_strnew_char('0', lst->exactness);
+	str_exa = ft_strnew_char('0', lst->exactness + 1);
 	ft_putendl(str_exa);
-	str = ft_itoa(va_arg(lst_arg, int));
+	str = ft_itoa(arg);
 	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
 	ft_putendl(str);
@@ -295,11 +297,51 @@ void ft_put_decimal(t_format *lst, va_list lst_arg)
 	else
 		str = ft_cop_str_right(str, str_wid);
 	ft_putendl(str);
-	
-	//size = (ft_strlen(str) > lst->exactness ? ft_strlen(str) : lst->exactness);
-	//ft_putnbr(size);
-//	while (
-	//ft_putnbr(va_arg(lst_arg, int));
+	ft_strdel(&str);
+}
+
+/*
+** Вывдит отрицательное десятичное число
+*/
+
+void ft_positive_decimal(t_format *lst, int arg)
+{
+	char	*str_wid;
+	char	*str_exa;
+	char	*str;
+
+	if (lst->flag == '0' && lst->exactness == 0)
+		str_wid = ft_strnew_char('0', lst->width + 1);
+	else 
+		str_wid = ft_strnew_char(' ', lst->width);
+	ft_putendl(str_wid);
+	str_exa = ft_strnew_char('0', lst->exactness + 1);
+	ft_putendl(str_exa);
+	str = ft_itoa(arg);
+	ft_putendl(str);
+	str = ft_cop_str_right(str, str_exa);
+	ft_putendl(str);
+	if (lst->flag == '-')
+		str = ft_cop_str_left(str, str_wid);
+	else
+		str = ft_cop_str_right(str, str_wid);
+	ft_putendl(str);
+	ft_strdel(&str);
+}
+
+/*
+** Определяет знак числа и отпровляет на вывод, согласно знаку
+*/
+
+void ft_put_decimal(t_format *lst, va_list lst_arg)
+{
+	int		arg;
+
+	arg = va_arg(lst_arg, int);
+	if (arg >= 0)
+		ft_positive_decimal(lst, arg);
+	else
+		ft_negative_decimal(lst, arg);
 }
 
 /*
@@ -435,7 +477,7 @@ int main()
 
 	b = "asdf";
 	a = 'E';
-	ft_printf("Hello\n%07iH\n", 11111);
-	printf("Hello\n%07iH\n", 11111);
+	ft_printf("Hello\n%0iH\n", 1234);
+	printf("Hello\n%0iH\n", 1234);
 	return 0;
 }

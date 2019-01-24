@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/24 11:27:41 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/01/24 16:20:21 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,23 @@ char *ft_strnew_char(int c, size_t len)
 }
 
 /*
+** Устранавливает знак + или - в ft_cop_str_right.
+*/
+void ft_sign_str(char *str1, char *str2)
+{
+	if (str1[0] == '-' && str2[0] == '0')
+	{
+		str1[0] = '0';
+		str2[0] = '-';
+	}
+	if (str1[0] == '+' && str2[0] == '0')
+	{
+		str1[0] = '0';
+		str2[0] = '+';
+	}
+}
+
+/*
 ** Копирование str1 в str2 с конца обеих строк, если str2 больше.
 */
 
@@ -229,11 +246,7 @@ char *ft_cop_str_right(char *str1, char *str2)
 	}
 	else 
 	{
-		if (str1[0] == '-' && str2[0] == '0')
-		{
-			str1[0] = '0';
-			str2[0] = '-';
-		}
+		ft_sign_str(str1, str2);
 		while (len2 >= 0 && len1 >= 0)
 			str2[len2--] = str1[len1--];
 		ft_strdel(&str1);
@@ -299,6 +312,16 @@ void ft_negative_decimal(t_format *lst, int arg)
 	ft_putendl(str);
 	ft_strdel(&str);
 }
+/*
+** Вставлят знак + перед положительным числом если есть флаг "+"
+*/
+void ft_plus_num(char **str)
+{
+	char *s;
+
+	s = ft_strnew_char('+', ft_strlen(*str) + 1);
+	*str = ft_cop_str_right(*str, s);
+}
 
 /*
 ** Вывдит отрицательное десятичное число
@@ -311,13 +334,19 @@ void ft_positive_decimal(t_format *lst, int arg)
 	char	*str;
 
 	if (lst->flag == '0' && lst->exactness == 0)
-		str_wid = ft_strnew_char('0', lst->width + 1);
+		str_wid = ft_strnew_char('0', lst->width);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
 	ft_putendl(str_wid);
-	str_exa = ft_strnew_char('0', lst->exactness + 1);
+		str = ft_itoa(arg);
+	if (lst->flag == '+')
+	{
+		ft_plus_num(&str);
+		str_exa = ft_strnew_char('0', lst->exactness + 1);
+	}
+	else 
+		str_exa = ft_strnew_char('0', lst->exactness);
 	ft_putendl(str_exa);
-	str = ft_itoa(arg);
 	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
 	ft_putendl(str);
@@ -477,7 +506,7 @@ int main()
 
 	b = "asdf";
 	a = 'E';
-	ft_printf("Hello\n%0iH\n", 1234);
-	printf("Hello\n%0iH\n", 1234);
+	ft_printf("Hello\n%+8iH\n", -0);
+	printf("Hello\n%+8iH\n",  -0);
 	return 0;
 }

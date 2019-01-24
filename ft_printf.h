@@ -14,6 +14,7 @@
 #define FT_PRINTF_H
 
 #include <stdarg.h>
+#include <stdio.h>
 #include "libft_last_ver/libft.h"
 
 typedef struct	s_format
@@ -23,5 +24,7 @@ typedef struct	s_format
 	int			exactness;
 	char		size[3];	
 }				t_format;
+
+int ft_printf(const char *restrict format, ...);
 
 #endif

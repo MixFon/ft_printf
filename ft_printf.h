@@ -25,6 +25,7 @@ typedef struct	s_format
 	char		size[3];	
 }				t_format;
 
-int ft_printf(const char *restrict format, ...);
+int		ft_printf(const char *restrict format, ...);
+void	ft_itoo(char *str, int n);
 
 #endif

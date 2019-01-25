@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+/*
+** Заполняет строку числами для ft_itoo
+** Добавить в библиотеку
+*/
+
 void ft_fullstr(char *str, int n)
 {
 	int		i;
@@ -24,12 +29,16 @@ void ft_fullstr(char *str, int n)
 	str[i] = *ptr;
 	free(ptr);
 }
-void ft_printbit(char *str, int n)
+
+/*
+** Переводит из десятичной в восмеричную систему
+*/
+
+void ft_itoo(char *str, int n)
 {
 	if (n >= 8)
-		ft_printbit(str, n / 8);
+		ft_itoo(str, n / 8);
 	ft_fullstr(str, n % 8);
-//	ft_putnbr(n % 8);
 }
 
 int main()
@@ -42,13 +51,13 @@ int main()
 	a = 'E';
 	b = ft_strnew(12);
 	c = ft_strnew(4);
-	ft_printbit(b, -1);
+	ft_itoo(b, -1);
 	ft_putendl(b);
-	ft_printbit(c, 49);
+	ft_itoo(c, 49);
 	ft_putendl(c);
 	free(b);
 	free(c);
-	//ft_printf("Hello\n%0.5dH\n", 20);
-	printf("Hello\n%oH\n", -3);
+	ft_printf("Hello\n%-oH\n", 9);
+	printf("Hello\n%-oH\n", 9);
 	return 0;
 }

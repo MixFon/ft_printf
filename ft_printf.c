@@ -398,6 +398,44 @@ void ft_put_hexadecimal(t_format *lst, va_list lst_arg)
 }
 
 /*
+** Работа с положительным восьмиричным числом
+** Дополнить функциями.
+*/
+
+void	ft_positive_octal(t_format *lst, int  arg)
+{
+	char	*str_wid;
+	char	*str_exa;
+	char	*str;
+
+	if (lst->flag == '0' && lst->exactness == 0)
+		str_wid = ft_strnew_char('0', lst->width);
+	else 
+		str_wid = ft_strnew_char(' ', lst->width);
+	ft_putendl(str_wid);
+	str = ft_strnew(20); //Уточнить значение 20 оно может быть меньше
+	ft_itoo(str, arg);
+	if (lst->flag == '+' || lst->flag == ' ')
+	{
+		ft_plus_or_space(lst, &str);
+		str_exa = ft_strnew_char('0', lst->exactness + 1);
+	}
+	else 
+		str_exa = ft_strnew_char('0', lst->exactness);
+	ft_putendl(str_exa);
+	ft_putendl(str);
+	str = ft_cop_str_right(str, str_exa);
+	ft_putendl(str);
+	if (lst->flag == '-')
+		str = ft_cop_str_left(str, str_wid);
+	else
+		str = ft_cop_str_right(str, str_wid);
+	ft_putendl(str);
+	ft_strdel(&str);
+
+}
+
+/*
 ** Вывод целого числа без знака в восьмеричной систем счисления.
 ** Дополнить функциями. Можно ли исправить int??
 */
@@ -405,6 +443,11 @@ void ft_put_hexadecimal(t_format *lst, va_list lst_arg)
 void ft_put_octal(t_format *lst, va_list lst_arg)
 {
 	//ft_putchar((char)va_arg(lst_arg, int));
+	int		arg;
+
+	arg = va_arg(lst_arg, int);
+	if (arg >= 0)
+		ft_positive_octal(lst, arg);
 }
 
 /*

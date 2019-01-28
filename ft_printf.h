@@ -28,5 +28,6 @@ typedef struct	s_format
 
 int		ft_printf(const char *restrict format, ...);
 void	ft_itoo(char *str, int n);
+void	ft_itox(char *str, int n);
 
 #endif

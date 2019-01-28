@@ -19,10 +19,11 @@
 
 typedef struct	s_format
 {
-	char		flag;
+	char		flag[5];
 	int			width;
 	int			exactness;
 	char		size[3];	
+	size_t		len_str;
 }				t_format;
 
 int		ft_printf(const char *restrict format, ...);

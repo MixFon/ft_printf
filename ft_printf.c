@@ -106,10 +106,13 @@ int	ft_read_exact(char *c, t_format *lst, va_list lst_arg)
 
 int	ft_read_flag(char *c, t_format *lst)
 {
+	static int	i;
+
 	if (*c == '0' && *(c + 1) == '.')
 		return (0);
 	if (ft_isflag(*c))
-		lst->flag = *c;
+		lst->flag[i] = *c;
+	i++;
 	return (1);
 }
 
@@ -147,7 +150,7 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 	c = iter;
 	while (!ft_istype(*c))
 	{
-		if (ft_isflag(*c) && !lst->flag)
+		while(ft_isflag(*c))
 			c += ft_read_flag(c, lst);
 		if (ft_isdigit(*c) || *c == '*')
 			c += ft_read_width(c, lst, lst_arg);	
@@ -156,7 +159,7 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 		if (ft_issize(*c))
 			c += ft_read_size(c , lst);
 		if (!ft_istype(*c))
-		c++;
+			c++;
 	}
 	return (c - iter);
 }
@@ -168,13 +171,25 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 void ft_putlst(t_format *lst)
 {
 	ft_putstr("\n");
-	ft_putchar(lst->flag);
+	ft_putendl("Flags in flag[5]:");
+	ft_putchar(lst->flag[0]);
 	ft_putstr("\n");
+	ft_putchar(lst->flag[1]);
+	ft_putstr("\n");
+	ft_putchar(lst->flag[2]);
+	ft_putstr("\n");
+	ft_putchar(lst->flag[3]);
+	ft_putstr("\n");
+	ft_putchar(lst->flag[4]);
+	ft_putstr("\n");
+	ft_putendl("Width, exactness, size, len_str in lst:");
 	ft_putnbr(lst->width);
 	ft_putstr("\n");
 	ft_putnbr(lst->exactness);
 	ft_putstr("\n");
 	ft_putstr(lst->size);
+	ft_putstr("\n");
+	ft_putnbr(lst->len_str);
 	ft_putstr("\n");
 }
 
@@ -184,16 +199,20 @@ void ft_putlst(t_format *lst)
 
 t_format *ft_newstruct(void)
 {
-	t_format *lst;
+	t_format	*lst;
+	int			i;
 	
+	i = -1;
 	if(!(lst = (t_format *)malloc(sizeof(t_format))))
 		return (NULL);
-	lst->flag = '\0';
+	while (++i < 5)
+		lst->flag[i] = '\0';
 	lst->width = 0;
 	lst->exactness = 0;
 	lst->size[0] = '\0';
 	lst->size[1] = '\0';
 	lst->size[2] = '\0';
+	lst->len_str = 0;
 	return (lst);
 }
 
@@ -213,6 +232,7 @@ char *ft_strnew_char(int c, size_t len)
 /*
 ** Устранавливает знак + или - в ft_cop_str_right.
 */
+
 void ft_sign_str(char *str1, char *str2)
 {
 	if (str1[0] == '-' && str2[0] == '0')
@@ -289,6 +309,20 @@ char *ft_cop_str_left(char *str1, char *str2)
 }
 
 /*
+** Проверяет есть ли в массиве flag[5] нужный символ флага 
+*/
+
+int ft_ceack_flag(t_format *lst, char flag)
+{
+	int i;
+
+	i = -1;
+	while (++i < 5)
+		if (lst->flag[i] == flag)
+			return (1);
+	return (0);
+}
+/*
 ** Вывдит отрицательное десятичное число
 */
 
@@ -298,7 +332,7 @@ void ft_negative_decimal(t_format *lst, int arg)
 	char	*str_exa;
 	char	*str;
 
-	if (lst->flag == '0' && lst->exactness == 0)
+	if (ft_ceack_flag(lst, '0') && lst->exactness == 0)
 		str_wid = ft_strnew_char('0', lst->width + 1);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
@@ -309,10 +343,12 @@ void ft_negative_decimal(t_format *lst, int arg)
 	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
 	ft_putendl(str);
-	if (lst->flag == '-')
+	if (ft_ceack_flag(lst, '-'))
 		str = ft_cop_str_left(str, str_wid);
 	else
 		str = ft_cop_str_right(str, str_wid);
+	ft_putendl("Final str:");
+	lst->len_str = ft_strlen(str);
 	ft_putendl(str);
 	ft_strdel(&str);
 }
@@ -325,7 +361,7 @@ void ft_plus_or_space(t_format *lst, char **str)
 {
 	char *s;
 
-	if (lst->flag == '+')
+	if (ft_ceack_flag(lst, '+'))
 	{
 		s = ft_strnew_char('+', ft_strlen(*str) + 1);
 		*str = ft_cop_str_right(*str, s);
@@ -347,13 +383,13 @@ void ft_positive_decimal(t_format *lst, int arg)
 	char	*str_exa;
 	char	*str;
 
-	if (lst->flag == '0' && lst->exactness == 0)
+	if (ft_ceack_flag(lst, '0') && lst->exactness == 0)
 		str_wid = ft_strnew_char('0', lst->width);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
 	ft_putendl(str_wid);
-		str = ft_itoa(arg);
-	if (lst->flag == '+' || lst->flag == ' ')
+	str = ft_itoa(arg);
+	if (ft_ceack_flag(lst, '+') || ft_ceack_flag(lst, ' '))
 	{
 		ft_plus_or_space(lst, &str);
 		str_exa = ft_strnew_char('0', lst->exactness + 1);
@@ -364,10 +400,12 @@ void ft_positive_decimal(t_format *lst, int arg)
 	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
 	ft_putendl(str);
-	if (lst->flag == '-')
+	if (ft_ceack_flag(lst, '-'))
 		str = ft_cop_str_left(str, str_wid);
 	else
 		str = ft_cop_str_right(str, str_wid);
+	ft_putendl("Final str:");
+	lst->len_str = ft_strlen(str);
 	ft_putendl(str);
 	ft_strdel(&str);
 }
@@ -408,14 +446,14 @@ void	ft_positive_octal(t_format *lst, int  arg)
 	char	*str_exa;
 	char	*str;
 
-	if (lst->flag == '0' && lst->exactness == 0)
+	if (ft_ceack_flag(lst, '0') && lst->exactness == 0)
 		str_wid = ft_strnew_char('0', lst->width);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
 	ft_putendl(str_wid);
-	str = ft_strnew(20); //Уточнить значение 20 оно может быть меньше
+	str = ft_strnew(12);
 	ft_itoo(str, arg);
-	if (lst->flag == '+' || lst->flag == ' ')
+	if (ft_ceack_flag(lst, '+') || ft_ceack_flag(lst, ' '))
 	{
 		ft_plus_or_space(lst, &str);
 		str_exa = ft_strnew_char('0', lst->exactness + 1);
@@ -426,10 +464,12 @@ void	ft_positive_octal(t_format *lst, int  arg)
 	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
 	ft_putendl(str);
-	if (lst->flag == '-')
+	if (ft_ceack_flag(lst, '-'))
 		str = ft_cop_str_left(str, str_wid);
 	else
 		str = ft_cop_str_right(str, str_wid);
+	ft_putendl("Final str:");
+	lst->len_str = ft_strlen(str);
 	ft_putendl(str);
 	ft_strdel(&str);
 
@@ -511,26 +551,28 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 		ft_put_string(lst, lst_arg);
 	if (*iter == 'c')
 		ft_put_char(lst, lst_arg);
-	return (1111); //Поправить!
+	return (1); //Поправить!
 }
 
 /*
 ** Считывает флаги и вызывает функцию, соответствуюшую типу
 */
 
-int ft_sort_arg(char *iter, va_list lst_arg)
+int ft_sort_arg(char *iter, va_list lst_arg, size_t *len_str,
+		size_t *len_format)
 {
 	t_format	*lst;
-	int			i;		//Использует для пропускания символов формата
 	char		*ptr;
 
 	ptr = iter;
 	lst = ft_newstruct();
 	ptr += ft_read_format(iter, lst, lst_arg);
-	ft_sotr_type(ptr, lst, lst_arg);
+	ptr += ft_sotr_type(ptr, lst, lst_arg);
+	*len_str += lst->len_str;
+	*len_format += (ptr - iter + 1);
 	ft_putlst(lst);
 	free(lst);
-	return (i);
+	return (ptr - iter);
 }
 
 /*
@@ -541,17 +583,21 @@ int ft_printf(const char *restrict format, ...)
 {
 	char		*iter;	
 	va_list		lst_arg;
+	size_t		len_str;
+	size_t		len_format;
 	
+	len_str = 0;
+	len_format = 0;
 	va_start(lst_arg, format);
 	iter = (char *)format;
 	while (*iter)
 	{
 		if (*iter == '%')
-			ft_sort_arg(iter + 1, lst_arg);
+			iter += ft_sort_arg(iter + 1, lst_arg, &len_str, &len_format);
 		else 
 			ft_putchar(*iter);
 		iter++;
 	}
 	va_end(lst_arg);
-	return (iter - format);	
+	return ((iter - format) + len_str - len_format);	
 }

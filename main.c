@@ -49,15 +49,16 @@ int main()
 
 	//b = "asdf";
 	a = 'E';
-	b = ft_strnew(12);
+/*	b = ft_strnew(12);
 	c = ft_strnew(4);
 	ft_itoo(b, -1);
 	ft_putendl(b);
 	ft_itoo(c, 49);
 	ft_putendl(c);
 	free(b);
-	free(c);
-	ft_printf("Hello\n%-oH\n", 9);
-	printf("Hello\n%-oH\n", 9);
+	free(c);*/
+	ft_putnbr(ft_printf("Hello\n%+-9.4iH", 21));
+	ft_putstr("\n");
+	ft_putnbr(printf("Hello\n%+-9.4iH", 21));
 	return 0;
 }

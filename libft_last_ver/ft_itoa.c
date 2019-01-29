@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-static char	*ft_recstr(char *str, int neg)
+static char	*ft_recstr(char *str, long long int neg)
 {
 	int		i;
-	int		n;
+	size_t	n;
 	char	cop[12];
 	char	*rtnstr;
 
@@ -37,9 +37,9 @@ static char	*ft_recstr(char *str, int neg)
 	return (rtnstr);
 }
 
-char		*ft_itoa(int n)
+char		*ft_itoa(long long int n)
 {
-	int				i;
+	size_t				i;
 	unsigned int	num;
 	int				neg;
 	char			str[12];

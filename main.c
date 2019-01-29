@@ -17,14 +17,14 @@ int main()
 	char	a;
 	char	*b;
 	char	*c;
-	int		n;
+	unsigned int	n;
 	char	*str; 
 
 	str = ft_strnew(20);
 	//b = "asdf";
 	n = 10;
 	a = 'E';
-	n = 128765398;
+	n = 4294967295;
 	/*while (++n < 300)
 	{
 		b = ft_strnew(12);
@@ -38,9 +38,10 @@ int main()
 		printf("%#10x\n", n);
 	}
 	*/
-	str = "Hello\n%# 9.4oH";
-	ft_printf("%d %.d", -0, -0);
+//	str = ft_itoa(n);
+//	ft_putendl(str);
+	ft_printf("%+u", 4294967295);
 	ft_putstr("\n");
-	printf("%d %.d", -0, -0);
+	printf("%+u", 4294967295);
 	return 0;
 }

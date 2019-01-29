@@ -390,7 +390,7 @@ void ft_plus_or_space(t_format *lst, char **str)
 ** Вывдит отрицательное десятичное число
 */
 
-void ft_positive_decimal(t_format *lst, int  arg)
+void ft_positive_decimal(t_format *lst, long long int  arg)
 {
 	char	*str_wid;
 	char	*str_exa;
@@ -615,9 +615,9 @@ void ft_put_foat(t_format *lst, va_list lst_arg)
 
 void ft_put_unsigned(t_format *lst, va_list lst_arg)
 {
-	unsigned int	arg;
+	long long int	arg;
 
-	arg = va_arg(lst_arg, unsigned int);
+	arg = va_arg(lst_arg, long long int);
 	ft_positive_decimal(lst, arg);
 }
 

@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 11:19:04 by widraugr          #+#    #+#             */
-/*   Updated: 2018/12/25 16:23:49 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/01/29 11:52:33 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,8 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 size_t				ft_strcl(const char *s, char c);
 char				*ft_strnjoin(char const *s1, char const *s2);
 char				*ft_strnjoinfree(char *s1, char const *s2);
+void				ft_itoo(char *str, int n);
+void				ft_itox(char *str, int n);
+int					ft_printf(const char *restrict format, ...);
 
 #endif

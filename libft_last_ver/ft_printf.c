@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/25 13:59:02 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/01/29 16:32:14 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	ft_read_exact(char *c, t_format *lst, va_list lst_arg)
 		while (ft_isdigit(*c++))
 			i++;
 	}
+	lst->dot = 1;
 	return (i);
 }
 
@@ -182,10 +183,12 @@ void ft_putlst(t_format *lst)
 	ft_putstr("\n");
 	ft_putchar(lst->flag[4]);
 	ft_putstr("\n");
-	ft_putendl("Width, exactness, size, len_str in lst:");
+	ft_putendl("Width, exactness, dot, size, len_str in lst:");
 	ft_putnbr(lst->width);
 	ft_putstr("\n");
 	ft_putnbr(lst->exactness);
+	ft_putstr("\n");
+	ft_putnbr(lst->dot);
 	ft_putstr("\n");
 	ft_putstr(lst->size);
 	ft_putstr("\n");
@@ -209,6 +212,7 @@ t_format *ft_newstruct(void)
 		lst->flag[i] = '\0';
 	lst->width = 0;
 	lst->exactness = 0;
+	lst->dot = 0;
 	lst->size[0] = '\0';
 	lst->size[1] = '\0';
 	lst->size[2] = '\0';
@@ -319,7 +323,7 @@ char *ft_cop_str_left(char *str1, char *str2)
 ** Проверяет есть ли в массиве flag[5] нужный символ флага 
 */
 
-int ft_ceack_flag(t_format *lst, char flag)
+int ft_chack_flag(t_format *lst, char flag)
 {
 	int i;
 
@@ -339,24 +343,25 @@ void ft_negative_decimal(t_format *lst, int arg)
 	char	*str_exa;
 	char	*str;
 
-	if (ft_ceack_flag(lst, '0') && lst->exactness == 0)
-		str_wid = ft_strnew_char('0', lst->width + 1);
+	if (ft_chack_flag(lst, '0') && !ft_chack_flag(lst, '-') && lst->exactness == 0)
+		str_wid = ft_strnew_char('0', lst->width);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
-	ft_putendl(str_wid);
+//	ft_putendl(str_wid);
+
+		str = ft_itoa(arg);
 	str_exa = ft_strnew_char('0', lst->exactness + 1);
-	ft_putendl(str_exa);
-	str = ft_itoa(arg);
-	ft_putendl(str);
+//	ft_putendl(str_exa);
+//	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
-	ft_putendl(str);
-	if (ft_ceack_flag(lst, '-'))
+//	ft_putendl(str);
+	if (ft_chack_flag(lst, '-'))
 		str = ft_cop_str_left(str, str_wid);
 	else
 		str = ft_cop_str_right(str, str_wid);
-	ft_putendl("Final str:");
+//	ft_putendl("Final str:");
 	lst->len_str = ft_strlen(str);
-	ft_putendl(str);
+	ft_putstr(str);
 	ft_strdel(&str);
 }
 
@@ -369,7 +374,7 @@ void ft_plus_or_space(t_format *lst, char **str)
 {
 	char *s;
 
-	if (ft_ceack_flag(lst, '+'))
+	if (ft_chack_flag(lst, '+'))
 	{
 		s = ft_strnew_char('+', ft_strlen(*str) + 1);
 		*str = ft_cop_str_right(*str, s);
@@ -385,36 +390,39 @@ void ft_plus_or_space(t_format *lst, char **str)
 ** Вывдит отрицательное десятичное число
 */
 
-void ft_positive_decimal(t_format *lst, int arg)
+void ft_positive_decimal(t_format *lst, int  arg)
 {
 	char	*str_wid;
 	char	*str_exa;
 	char	*str;
 
-	if (ft_ceack_flag(lst, '0') && lst->exactness == 0)
+	if (ft_chack_flag(lst, '0') && !ft_chack_flag(lst, '-') && lst->exactness == 0)
 		str_wid = ft_strnew_char('0', lst->width);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
-	ft_putendl(str_wid);
-	str = ft_itoa(arg);
-	if (ft_ceack_flag(lst, '+') || ft_ceack_flag(lst, ' '))
+//	ft_putendl(str_wid);
+	if (arg == 0 && lst->dot == 1 && !ft_chack_flag(lst, '+'))
+		str = ft_strnew_char(' ', 0);
+	else
+		(str = ft_itoa(arg));
+	if (ft_chack_flag(lst, '+') || ft_chack_flag(lst, ' '))
 	{
 		ft_plus_or_space(lst, &str);
 		str_exa = ft_strnew_char('0', lst->exactness + 1);
 	}
 	else 
 		str_exa = ft_strnew_char('0', lst->exactness);
-	ft_putendl(str_exa);
-	ft_putendl(str);
+//	ft_putendl(str_exa);
+//	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
-	ft_putendl(str);
-	if (ft_ceack_flag(lst, '-'))
+//	ft_putendl(str);
+	if (ft_chack_flag(lst, '-'))
 		str = ft_cop_str_left(str, str_wid);
 	else
 		str = ft_cop_str_right(str, str_wid);
-	ft_putendl("Final str:");
+//	ft_putendl("Final str:");
 	lst->len_str = ft_strlen(str);
-	ft_putendl(str);
+	ft_putstr(str);
 	ft_strdel(&str);
 }
 
@@ -435,9 +443,10 @@ void ft_put_decimal(t_format *lst, va_list lst_arg)
 
 /*
 ** Вставлят 0x перед восьмиричным числом, если есть флаг #
+** Проверить на утечки! 
 */
 
-void ft_octotorp_hex(t_format *lst, char **str)
+void ft_octotorp_hex(char **str)
 {
 	char *s;
 
@@ -469,34 +478,39 @@ void	ft_hexadecimal(t_format *lst, int  arg, char char_x)
 	char	*str_exa;
 	char	*str;
 
-	if (ft_ceack_flag(lst, '0') && lst->exactness == 0 &&
-			!ft_ceack_flag(lst, '-'))
+	if (ft_chack_flag(lst, '0') && lst->exactness == 0 &&
+			!ft_chack_flag(lst, '-'))
 		str_wid = ft_strnew_char('0', lst->width);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
-	ft_putendl(str_wid);
-	str = ft_strnew(12);
-	ft_itox(str, arg);
-	if (ft_ceack_flag(lst, '#'))
+//	ft_putendl(str_wid);
+	if (arg == 0 && lst->dot == 1)
+		str = ft_strnew_char(' ', 0);
+	else
 	{
-		ft_octotorp_hex(lst, &str);
+		str = ft_strnew(12);
+		ft_itox(str, arg);
+	}
+	if (ft_chack_flag(lst, '#') && arg != 0)
+	{
+		ft_octotorp_hex(&str);
 		str_exa = ft_strnew_char('0', lst->exactness + 2);
 	}
 	else 
 		str_exa = ft_strnew_char('0', lst->exactness);
-	ft_putendl(str_exa);
-	ft_putendl(str);
+//	ft_putendl(str_exa);
+//	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
-	ft_putendl(str);
-	if (ft_ceack_flag(lst, '-'))
+//	ft_putendl(str);
+	if (ft_chack_flag(lst, '-'))
 		str = ft_cop_str_left(str, str_wid);
 	else
 		str = ft_cop_str_right(str, str_wid);
 	if (char_x == 'X')
 		ft_str_toupper(str);
-	ft_putendl("Final str:");
+//	ft_putendl("Final str:");
 	lst->len_str = ft_strlen(str);
-	ft_putendl(str);
+	ft_putstr(str);
 	ft_strdel(&str);
 }
 
@@ -518,7 +532,7 @@ void ft_put_hexadecimal(t_format *lst, va_list lst_arg, char char_x)
 ** Вставлят 0 перед восьмиричным числом, если есть флаг #
 */
 
-void ft_octotorp_octal(t_format *lst, char **str)
+void ft_octotorp_octal(char **str)
 {
 	char *s;
 
@@ -537,28 +551,33 @@ void	ft_octal(t_format *lst, int  arg)
 	char	*str_exa;
 	char	*str;
 
-	if (ft_ceack_flag(lst, '0') && lst->exactness == 0 &&
-			!ft_ceack_flag(lst, '-'))
+	if (ft_chack_flag(lst, '0') && lst->exactness == 0 &&
+			!ft_chack_flag(lst, '-'))
 		str_wid = ft_strnew_char('0', lst->width);
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
-	ft_putendl(str_wid);
-	str = ft_strnew(12);
-	ft_itoo(str, arg);
-	if (ft_ceack_flag(lst, '#'))
-		ft_octotorp_octal(lst, &str);
+//	ft_putendl(str_wid);
+	if (arg == 0 && lst->dot == 1)
+		str = ft_strnew_char(' ', 0);
+	else
+	{
+		str = ft_strnew(12);
+		ft_itoo(str, arg);
+	}
+	if (ft_chack_flag(lst, '#'))
+		ft_octotorp_octal(&str);
 	str_exa = ft_strnew_char('0', lst->exactness);
-	ft_putendl(str_exa);
-	ft_putendl(str);
+//	ft_putendl(str_exa);
+//	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
-	ft_putendl(str);
-	if (ft_ceack_flag(lst, '-'))
+//	ft_putendl(str);
+	if (ft_chack_flag(lst, '-'))
 		str = ft_cop_str_left(str, str_wid);
 	else
 		str = ft_cop_str_right(str, str_wid);
-	ft_putendl("Final str:");
+//	ft_putendl("Final str:");
 	lst->len_str = ft_strlen(str);
-	ft_putendl(str);
+	ft_putstr(str);
 	ft_strdel(&str);
 }
 
@@ -587,16 +606,21 @@ void ft_put_foat(t_format *lst, va_list lst_arg)
 	//ft_putchar((char)va_arg(lst_arg, int));
 }
 */
+
 /*
 ** Вывод целого числа без знака в десятичной систем счисления.
+** !!!!!!!!   Обрабатывается тае же как и d и i   !!!!!!!
 ** Дополнить функциями. Можно ли исправить int??
 */
-/*
+
 void ft_put_unsigned(t_format *lst, va_list lst_arg)
 {
-	//ft_putchar((char)va_arg(lst_arg, int));
+	unsigned int	arg;
+
+	arg = va_arg(lst_arg, unsigned int);
+	ft_positive_decimal(lst, arg);
 }
-*/
+
 /*
 ** Выводит на печать форматированную строку.
 ** Дополнить функциями.
@@ -617,6 +641,32 @@ void ft_put_char(t_format *lst, va_list lst_arg)
 	ft_putchar((char)va_arg(lst_arg, int));
 }
 */
+
+/*
+** Выводит знак процента %
+*/
+
+void	ft_put_percent(t_format *lst)
+{
+	char	*str_wid;
+	char	*str;
+
+	if (ft_chack_flag(lst, '0') && lst->exactness == 0 &&
+			!ft_chack_flag(lst, '-'))
+		str_wid = ft_strnew_char('0', lst->width);
+	else 
+		str_wid = ft_strnew_char(' ', lst->width);
+//	ft_putendl(str_wid);
+		str = ft_strnew_char('%', 1);
+	if (ft_chack_flag(lst, '-'))
+		str = ft_cop_str_left(str, str_wid);
+	else
+		str = ft_cop_str_right(str, str_wid);
+	lst->len_str = ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
+
+}
 /*
 ** Распределяет строку, согдласно типу.
 ** Типы: c,s,p,d,i,o,u,x,X,f,%
@@ -630,11 +680,13 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 		ft_put_hexadecimal(lst, lst_arg, *iter);
 	if (*iter == 'o')
 		ft_put_octal(lst, lst_arg);
-/*	if (*iter == 'f')
-		ft_put_foat(lst, lst_arg);
+	if (*iter == '%')
+		ft_put_percent(lst);
 	if (*iter == 'u')
 		ft_put_unsigned(lst, lst_arg);
-	if (*iter == 's')
+//	if (*iter == 'f')
+//		ft_put_foat(lst, lst_arg);
+/*	if (*iter == 's')
 		ft_put_string(lst, lst_arg);
 	if (*iter == 'c')
 		ft_put_char(lst, lst_arg);*/
@@ -657,7 +709,7 @@ int ft_sort_arg(char *iter, va_list lst_arg, size_t *len_str,
 	ptr += ft_sotr_type(ptr, lst, lst_arg);
 	*len_str += lst->len_str;
 	*len_format += (ptr - iter + 1);
-	ft_putlst(lst);
+//	ft_putlst(lst);
 	free(lst);
 	return (ptr - iter);
 }

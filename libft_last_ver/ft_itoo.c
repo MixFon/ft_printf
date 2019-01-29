@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_itoo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/22 10:42:41 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/25 13:46:56 by widraugr         ###   ########.fr       */
+/*   Created: 2019/01/29 10:36:59 by widraugr          #+#    #+#             */
+/*   Updated: 2019/01/29 11:00:51 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+#include "libft.h"
 
-#include <stdarg.h>
-#include <stdio.h>
-#include "libft_last_ver/libft.h"
+/*
+** Fill string number for ft_itoo
+*/
 
-typedef struct	s_format
+static void	ft_fullstr_o(char *str, int n)
 {
-	char		flag[5];
-	int			width;
-	int			exactness;
-	char		size[3];	
-	size_t		len_str;
-}				t_format;
+	int		i;
+	char	*ptr;
 
-int		ft_printf(const char *restrict format, ...);
-void	ft_itoo(char *str, int n);
-void	ft_itox(char *str, int n);
+	i = 0;
+	ptr = ft_itoa(n);
+	while (str[i] != '\0')
+		i++;
+	str[i] = *ptr;
+	free(ptr);
+}
 
-#endif
+/*
+** Move decimal to octal and fill string
+*/
+
+void		ft_itoo(char *str, int n)
+{
+	if (n >= 8)
+		ft_itoo(str, n / 8);
+	ft_fullstr_o(str, n % 8);
+}

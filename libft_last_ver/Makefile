@@ -6,11 +6,11 @@
 #    By: widraugr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 13:07:44 by widraugr          #+#    #+#              #
-#    Updated: 2019/01/16 14:22:42 by widraugr         ###   ########.fr        #
+#    Updated: 2019/01/29 11:52:03 by widraugr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = libftprintf.a
 
 NAMEBIN = libft
 
@@ -77,7 +77,10 @@ ft_strfr.c\
 ft_strcl.c\
 ft_strnjoin.c\
 ft_strnjoinfree.c\
-ft_strfr.c
+ft_strfr.c\
+ft_itoo.c\
+ft_itox.c\
+ft_printf.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -142,7 +145,10 @@ ft_strfr.o\
 ft_strcl.o\
 ft_strnjoin.o\
 ft_strnjoinfree.o\
-ft_strfr.o
+ft_strfr.o\
+ft_itoo.o\
+ft_itox.o\
+ft_printf.o
 
 all : $(NAME)
 

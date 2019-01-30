@@ -80,7 +80,9 @@ ft_strnjoinfree.c\
 ft_strfr.c\
 ft_itoo.c\
 ft_itox.c\
-ft_printf.c
+ft_printf.c\
+type_char.c\
+type_string.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -148,7 +150,9 @@ ft_strnjoinfree.o\
 ft_strfr.o\
 ft_itoo.o\
 ft_itox.o\
-ft_printf.o
+ft_printf.o\
+type_char.o\
+type_string.o
 
 all : $(NAME)
 

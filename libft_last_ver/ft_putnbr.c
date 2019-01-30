@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static	void	ft_recprint(char *str, int neg)
+static	void	ft_recprint(char *str, intmax_t neg)
 {
 	int		i;
 
@@ -28,7 +28,7 @@ static	void	ft_recprint(char *str, int neg)
 	}
 }
 
-void			ft_putnbr(int n)
+void			ft_putnbr(intmax_t n)
 {
 	unsigned int	num;
 	char			str[12];

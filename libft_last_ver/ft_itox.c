@@ -16,9 +16,9 @@
 ** Fill string for ft_itoo
 */
 
-static void	ft_fullstr_x(char *str, int n)
+static void	ft_fullstr_x(char *str, intmax_t n)
 {
-	int		i;
+	size_t	i;
 	char	*ptr;
 
 	i = 0;
@@ -46,7 +46,7 @@ static void	ft_fullstr_x(char *str, int n)
 ** Move decimal to hexadecimal
 */
 
-void		ft_itox(char *str, int n)
+void		ft_itox(char *str, intmax_t n)
 {
 	if (n >= 16)
 		ft_itox(str, n / 16);

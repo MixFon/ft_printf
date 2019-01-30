@@ -40,8 +40,8 @@ int main()
 	*/
 //	str = ft_itoa(n);
 //	ft_putendl(str);
-	ft_printf("%+u", 4294967295);
+	ft_printf("%lx", 4294967296);
 	ft_putstr("\n");
-	printf("%+u", 4294967295);
+	printf("%lx", 4294967296);
 	return 0;
 }

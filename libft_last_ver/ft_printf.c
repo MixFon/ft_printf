@@ -45,7 +45,7 @@ int	ft_istype(char c)
 
 int	ft_issize(char c)
 {
-	if (c == 'l' || c == 'h' || c == 'L')
+	if (c == 'l' || c == 'h' || c == 'j' || c == 'z')
 		return (1);
 	else
 		return (0);
@@ -234,7 +234,7 @@ char *ft_strnew_char(int c, size_t len)
 }
 
 /*
-** Устранавливает знак + или - в ft_cop_str_right.
+** Устранавливает знак +, - или ox в ft_cop_str_right.
 */
 
 void ft_sign_str(char *str1, char *str2)
@@ -337,7 +337,7 @@ int ft_chack_flag(t_format *lst, char flag)
 ** Вывдит отрицательное десятичное число
 */
 
-void ft_negative_decimal(t_format *lst, int arg)
+void ft_negative_decimal(t_format *lst, intmax_t arg)
 {
 	char	*str_wid;
 	char	*str_exa;
@@ -348,8 +348,7 @@ void ft_negative_decimal(t_format *lst, int arg)
 	else 
 		str_wid = ft_strnew_char(' ', lst->width);
 //	ft_putendl(str_wid);
-
-		str = ft_itoa(arg);
+	str = ft_itoa(arg);
 	str_exa = ft_strnew_char('0', lst->exactness + 1);
 //	ft_putendl(str_exa);
 //	ft_putendl(str);
@@ -390,7 +389,7 @@ void ft_plus_or_space(t_format *lst, char **str)
 ** Вывдит отрицательное десятичное число
 */
 
-void ft_positive_decimal(t_format *lst, long long int  arg)
+void ft_positive_decimal(t_format *lst, uintmax_t  arg)
 {
 	char	*str_wid;
 	char	*str_exa;
@@ -404,7 +403,7 @@ void ft_positive_decimal(t_format *lst, long long int  arg)
 	if (arg == 0 && lst->dot == 1 && !ft_chack_flag(lst, '+'))
 		str = ft_strnew_char(' ', 0);
 	else
-		(str = ft_itoa(arg));
+		str = ft_itoa(arg);
 	if (ft_chack_flag(lst, '+') || ft_chack_flag(lst, ' '))
 	{
 		ft_plus_or_space(lst, &str);
@@ -425,6 +424,84 @@ void ft_positive_decimal(t_format *lst, long long int  arg)
 	ft_putstr(str);
 	ft_strdel(&str);
 }
+/*
+** Определяет размерность типа по модификатору (size) 
+** у БЕЗзнакового числа o, u, x, X
+*/
+
+uintmax_t ft_check_un_dimension(t_format *lst, va_list lst_arg)
+{
+	uintmax_t	arg;
+
+	arg = va_arg(lst_arg, uintmax_t);
+	//ft_putnbr(arg);
+	//ft_putstr("\n");
+	if (lst->size[0] == 'h' && lst->size[1] == '\0')
+	{
+		arg = (unsigned short int)arg;
+		//ft_putendl("1");
+	}
+	else	if (lst->size[0] == 'h' && lst->size[1] == 'h')
+	{
+	   arg = (unsigned char)arg;	
+		//ft_putendl("2");
+	}
+	else	if (lst->size[0] == 'l' && lst->size[1] == '\0')
+	{
+	   arg = (unsigned long )arg;
+	   //ft_putendl("3");
+	}
+	else	if (lst->size[0] == 'l' && lst->size[1] == 'l')
+	{
+	   arg = (unsigned long long int)arg;	
+		//ft_putendl("4");
+	}
+	else	if (lst->size[0] == 'j' && lst->size[1] == '\0')
+	{
+	   arg = (uintmax_t)arg;	
+		//ft_putendl("5");
+	}
+	else	if (lst->size[0] == 'z' && lst->size[1] == '\0')
+	{
+	   arg = (size_t)arg;	
+		//ft_putendl("6");
+	}
+	else
+	{
+		arg = (unsigned int)arg;	
+		//ft_putendl("7");
+	}
+	//ft_putnbr(arg);
+	return (arg);
+}
+
+/*
+** Определяет размерность типа по модификатору (size) 
+** у знакового числа i и d
+*/
+
+intmax_t ft_check_dimension(t_format *lst, va_list lst_arg)
+{
+	intmax_t	arg;
+
+	arg = va_arg(lst_arg, intmax_t);
+	//ft_putnbr(arg);
+	if (lst->size[0] == 'h' && lst->size[1] =='\0' )
+	   arg = (short int)arg;	
+	else	if (lst->size[0] == 'h' && lst->size[1] == 'h')
+	   arg = (signed char)arg;	
+	else	if (lst->size[0] == 'l' && lst->size[1] == '\0')
+	   arg = (long int)arg;	
+	else	if (lst->size[0] == 'l' && lst->size[1] == 'l')
+	   arg = (long long int)arg;	
+	else	if (lst->size[0] == 'j' && lst->size[1] == '\0')
+	   arg = (intmax_t)arg;	
+	else	if (lst->size[0] == 'z' && lst->size[1] == '\0')
+	   arg = (size_t)arg;	
+	else
+	   arg = (int)arg;	
+	return (arg);
+}
 
 /*
 ** Определяет знак числа и отпровляет на вывод, согласно знаку
@@ -432,9 +509,9 @@ void ft_positive_decimal(t_format *lst, long long int  arg)
 
 void ft_put_decimal(t_format *lst, va_list lst_arg)
 {
-	int		arg;
+	intmax_t	arg;
 
-	arg = va_arg(lst_arg, int);
+	arg = ft_check_dimension(lst, lst_arg);
 	if (arg >= 0)
 		ft_positive_decimal(lst, arg);
 	else
@@ -472,7 +549,7 @@ void ft_str_toupper(char *str)
 ** Флаги + и ' ' не учитываются
 */
 
-void	ft_hexadecimal(t_format *lst, int  arg, char char_x)
+void	ft_hexadecimal(t_format *lst, uintmax_t  arg, char char_x)
 {
 	char	*str_wid;
 	char	*str_exa;
@@ -488,7 +565,7 @@ void	ft_hexadecimal(t_format *lst, int  arg, char char_x)
 		str = ft_strnew_char(' ', 0);
 	else
 	{
-		str = ft_strnew(12);
+		str = ft_strnew(20);
 		ft_itox(str, arg);
 	}
 	if (ft_chack_flag(lst, '#') && arg != 0)
@@ -521,11 +598,10 @@ void	ft_hexadecimal(t_format *lst, int  arg, char char_x)
 
 void ft_put_hexadecimal(t_format *lst, va_list lst_arg, char char_x)
 {
-	int		arg;
+	intmax_t	arg;
 
-	arg = va_arg(lst_arg, int);
-	if (arg >= 0)
-		ft_hexadecimal(lst, arg, char_x);
+	arg = ft_check_un_dimension(lst, lst_arg);
+	ft_hexadecimal(lst, arg, char_x);
 }
 
 /*
@@ -608,17 +684,51 @@ void ft_put_foat(t_format *lst, va_list lst_arg)
 */
 
 /*
+** Обрабатывает беззаковое число, не выводит пробел и +
+*/
+
+void ft_unsigned(t_format *lst, uintmax_t  arg)
+{
+	char	*str_wid;
+	char	*str_exa;
+	char	*str;
+
+	if (ft_chack_flag(lst, '0') && !ft_chack_flag(lst, '-') && lst->exactness == 0)
+		str_wid = ft_strnew_char('0', lst->width);
+	else 
+		str_wid = ft_strnew_char(' ', lst->width);
+//	ft_putendl(str_wid);
+	if (arg == 0 && lst->dot == 1 && !ft_chack_flag(lst, '+'))
+		str = ft_strnew_char(' ', 0);
+	else
+		str = ft_itoa(arg);
+	str_exa = ft_strnew_char('0', lst->exactness);
+//	ft_putendl(str_exa);
+//	ft_putendl(str);
+	str = ft_cop_str_right(str, str_exa);
+//	ft_putendl(str);
+	if (ft_chack_flag(lst, '-'))
+		str = ft_cop_str_left(str, str_wid);
+	else
+		str = ft_cop_str_right(str, str_wid);
+//	ft_putendl("Final str:");
+	lst->len_str = ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
+}
+
+
+/*
 ** Вывод целого числа без знака в десятичной систем счисления.
-** !!!!!!!!   Обрабатывается тае же как и d и i   !!!!!!!
 ** Дополнить функциями. Можно ли исправить int??
 */
 
 void ft_put_unsigned(t_format *lst, va_list lst_arg)
 {
-	long long int	arg;
+	uintmax_t	arg;
 
-	arg = va_arg(lst_arg, long long int);
-	ft_positive_decimal(lst, arg);
+	arg = ft_check_un_dimension(lst, lst_arg);
+	ft_unsigned(lst, arg);
 }
 
 /*
@@ -686,10 +796,10 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 		ft_put_unsigned(lst, lst_arg);
 //	if (*iter == 'f')
 //		ft_put_foat(lst, lst_arg);
-/*	if (*iter == 's')
+	if (*iter == 's')
 		ft_put_string(lst, lst_arg);
 	if (*iter == 'c')
-		ft_put_char(lst, lst_arg);*/
+		ft_put_char(lst, lst_arg);
 	return (1); //Поправить!
 }
 
@@ -709,7 +819,7 @@ int ft_sort_arg(char *iter, va_list lst_arg, size_t *len_str,
 	ptr += ft_sotr_type(ptr, lst, lst_arg);
 	*len_str += lst->len_str;
 	*len_format += (ptr - iter + 1);
-//	ft_putlst(lst);
+	//ft_putlst(lst);
 	free(lst);
 	return (ptr - iter);
 }

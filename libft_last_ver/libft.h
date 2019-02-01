@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 11:19:04 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/29 11:52:33 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:19:33 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(intmax_t n);
+char				*ft_un_itoa(uintmax_t n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
@@ -84,8 +85,8 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 size_t				ft_strcl(const char *s, char c);
 char				*ft_strnjoin(char const *s1, char const *s2);
 char				*ft_strnjoinfree(char *s1, char const *s2);
-void				ft_itoo(char *str, intmax_t n);
-void				ft_itox(char *str, intmax_t n);
+void				ft_itoo(char *str, uintmax_t n);
+void				ft_itox(char *str, uintmax_t n);
 int					ft_printf(const char *restrict format, ...);
 
 #endif

@@ -6,25 +6,25 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 13:43:38 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/29 16:32:19 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:35:57 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_last_ver/ft_printf.h"
-
+#define LONG_MAX 9223372036854775807
+#define ULLONG_MAX 18446744073709551615
 int main()
 {
-	char	a;
-	char	*b;
-	char	*c;
-	unsigned int	n;
-	char	*str; 
+	int	*i;
+//	char	*b;
+//	char	*c;
+//	unsigned int	n;
+//	char	*str; 
 
-	str = ft_strnew(20);
+	//str = ft_strnew(20);
 	//b = "asdf";
-	n = 10;
-	a = 'E';
-	n = 4294967295;
+//	n = 10;
+//	n = 4294967295;
 	/*while (++n < 300)
 	{
 		b = ft_strnew(12);
@@ -40,8 +40,9 @@ int main()
 	*/
 //	str = ft_itoa(n);
 //	ft_putendl(str);
-	ft_printf("%lx", 4294967296);
+	ft_printf("%p", 0);
 	ft_putstr("\n");
-	printf("%lx", 4294967296);
+	printf("%p", 0);
 	return 0;
 }
+

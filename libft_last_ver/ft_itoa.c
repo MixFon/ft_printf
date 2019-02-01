@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 12:09:44 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/29 16:32:16 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:16:51 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*ft_recstr(char *str, int neg)
 {
 	long int	i;
 	size_t		n;
-	char		cop[12];
+	char		cop[23];
 	char		*rtnstr;
 
 	n = 0;
@@ -40,9 +40,9 @@ static char	*ft_recstr(char *str, int neg)
 char		*ft_itoa(intmax_t n)
 {
 	size_t			i;
-	intmax_t		num;
+	uintmax_t		num;
 	int				neg;
-	char			str[20];
+	char			str[21];
 	char			*rtnstr;
 
 	i = 0;
@@ -50,7 +50,7 @@ char		*ft_itoa(intmax_t n)
 	num = n;
 	if (n < 0)
 	{
-		num = num * (-1);
+		num = n * (-1);
 		neg = -1;
 	}
 	while (num != 0)

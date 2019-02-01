@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 10:43:12 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/29 11:01:25 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/01 12:30:56 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Fill string for ft_itoo
 */
 
-static void	ft_fullstr_x(char *str, intmax_t n)
+static void	ft_fullstr_x(char *str, uintmax_t n)
 {
 	size_t	i;
 	char	*ptr;
@@ -46,7 +46,7 @@ static void	ft_fullstr_x(char *str, intmax_t n)
 ** Move decimal to hexadecimal
 */
 
-void		ft_itox(char *str, intmax_t n)
+void		ft_itox(char *str, uintmax_t n)
 {
 	if (n >= 16)
 		ft_itox(str, n / 16);

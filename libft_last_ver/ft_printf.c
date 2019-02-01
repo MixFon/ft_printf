@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/01/29 16:32:14 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:19:00 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	ft_isflag(char c)
 int	ft_istype(char c)
 {
 	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == '%' ||
-		c == 'o' || c == 'u' || c == 'x' || c == 'X' || c == 'f')
+		c == 'o' || c == 'u' || c == 'x' || c == 'X' || c == 'C' || c == 'U' ||
+		c == 'S' || c == 'C' || c == 'D' || c == 'O')
 		return (1);
 	else
 		return (0);
@@ -109,8 +110,8 @@ int	ft_read_flag(char *c, t_format *lst)
 {
 	static int	i;
 
-	if (*c == '0' && *(c + 1) == '.')
-		return (0);
+	//if (*c == '0' && *(c + 1) == '.')
+	//	return (0);
 	if (ft_isflag(*c))
 		lst->flag[i] = *c;
 	i++;
@@ -140,6 +141,11 @@ int	ft_read_size(char *c, t_format *lst)
 }
 
 /*
+** Проверяет есть ли да
+** ных символов.
+*/
+
+/*
 ** Читает формат и записывает его в струкруру. Возвращает колличество прочитан-
 ** ных символов.
 */
@@ -149,7 +155,7 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 	char	*c;
 
 	c = iter;
-	while (!ft_istype(*c))
+	while (!ft_istype(*c) && *c != '\0')
 	{
 		while(ft_isflag(*c))
 			c += ft_read_flag(c, lst);
@@ -435,7 +441,6 @@ uintmax_t ft_check_un_dimension(t_format *lst, va_list lst_arg)
 
 	arg = va_arg(lst_arg, uintmax_t);
 	//ft_putnbr(arg);
-	//ft_putstr("\n");
 	if (lst->size[0] == 'h' && lst->size[1] == '\0')
 	{
 		arg = (unsigned short int)arg;
@@ -453,8 +458,8 @@ uintmax_t ft_check_un_dimension(t_format *lst, va_list lst_arg)
 	}
 	else	if (lst->size[0] == 'l' && lst->size[1] == 'l')
 	{
-	   arg = (unsigned long long int)arg;	
-		//ft_putendl("4");
+	   arg = (unsigned long long int)arg;
+	   //ft_putendl("4");
 	}
 	else	if (lst->size[0] == 'j' && lst->size[1] == '\0')
 	{
@@ -486,6 +491,7 @@ intmax_t ft_check_dimension(t_format *lst, va_list lst_arg)
 
 	arg = va_arg(lst_arg, intmax_t);
 	//ft_putnbr(arg);
+	//ft_putendl("BBB\n");
 	if (lst->size[0] == 'h' && lst->size[1] =='\0' )
 	   arg = (short int)arg;	
 	else	if (lst->size[0] == 'h' && lst->size[1] == 'h')
@@ -493,13 +499,19 @@ intmax_t ft_check_dimension(t_format *lst, va_list lst_arg)
 	else	if (lst->size[0] == 'l' && lst->size[1] == '\0')
 	   arg = (long int)arg;	
 	else	if (lst->size[0] == 'l' && lst->size[1] == 'l')
+	{
 	   arg = (long long int)arg;	
+	 //  ft_putendl("EEE\n");
+	}
 	else	if (lst->size[0] == 'j' && lst->size[1] == '\0')
 	   arg = (intmax_t)arg;	
 	else	if (lst->size[0] == 'z' && lst->size[1] == '\0')
 	   arg = (size_t)arg;	
 	else
 	   arg = (int)arg;	
+	//ft_putendl("\n");
+	//ft_putnbr(arg);
+//	ft_putendl("CCC\n");
 	return (arg);
 }
 
@@ -512,10 +524,18 @@ void ft_put_decimal(t_format *lst, va_list lst_arg)
 	intmax_t	arg;
 
 	arg = ft_check_dimension(lst, lst_arg);
+	//ft_putendl("\n");
+	//ft_putnbr(arg);
 	if (arg >= 0)
+	{
+	//	ft_putendl("1");
 		ft_positive_decimal(lst, arg);
+	}
 	else
+	{
+	//	ft_putendl("2");
 		ft_negative_decimal(lst, arg);
+	}
 }
 
 /*
@@ -565,7 +585,7 @@ void	ft_hexadecimal(t_format *lst, uintmax_t  arg, char char_x)
 		str = ft_strnew_char(' ', 0);
 	else
 	{
-		str = ft_strnew(20);
+		str = ft_strnew(22);
 		ft_itox(str, arg);
 	}
 	if (ft_chack_flag(lst, '#') && arg != 0)
@@ -621,7 +641,7 @@ void ft_octotorp_octal(char **str)
 ** Флаги + и ' ' не учитываются
 */
 
-void	ft_octal(t_format *lst, int  arg)
+void	ft_octal(t_format *lst, uintmax_t arg)
 {
 	char	*str_wid;
 	char	*str_exa;
@@ -637,7 +657,7 @@ void	ft_octal(t_format *lst, int  arg)
 		str = ft_strnew_char(' ', 0);
 	else
 	{
-		str = ft_strnew(12);
+		str = ft_strnew(21);
 		ft_itoo(str, arg);
 	}
 	if (ft_chack_flag(lst, '#'))
@@ -665,11 +685,10 @@ void	ft_octal(t_format *lst, int  arg)
 void ft_put_octal(t_format *lst, va_list lst_arg)
 {
 	//ft_putchar((char)va_arg(lst_arg, int));
-	int		arg;
+	uintmax_t	arg;
 
-	arg = va_arg(lst_arg, int);
-	if (arg >= 0)
-		ft_octal(lst, arg);
+	arg = ft_check_un_dimension(lst, lst_arg);
+	ft_octal(lst, arg);
 }
 
 /*
@@ -701,7 +720,7 @@ void ft_unsigned(t_format *lst, uintmax_t  arg)
 	if (arg == 0 && lst->dot == 1 && !ft_chack_flag(lst, '+'))
 		str = ft_strnew_char(' ', 0);
 	else
-		str = ft_itoa(arg);
+		str = ft_un_itoa(arg);
 	str_exa = ft_strnew_char('0', lst->exactness);
 //	ft_putendl(str_exa);
 //	ft_putendl(str);
@@ -777,6 +796,76 @@ void	ft_put_percent(t_format *lst)
 	ft_strdel(&str);
 
 }
+
+/*
+** Проверяет является символ типа кобинированным символом SCDOU.
+*/
+
+void ft_check_special_type(char *iter, t_format *lst)
+{
+	if (*iter == 'U' || *iter == 'D' || *iter == 'O')
+	{
+		lst->size[0] = 'l';
+		lst->size[1] = 'l';
+	}
+}
+
+/*
+** Выводит на экран поинтер в шеснацетиричной форме
+*/
+
+void ft_pointer(t_format *lst, uintmax_t arg)
+{
+	char	*str_wid;
+	char	*str_exa;
+	char	*str;
+
+	if (ft_chack_flag(lst, '0') && lst->exactness == 0 &&
+			!ft_chack_flag(lst, '-'))
+		str_wid = ft_strnew_char('0', lst->width);
+	else 
+		str_wid = ft_strnew_char(' ', lst->width);
+//	ft_putendl(str_wid);
+	if (arg == 0 && lst->dot == 1)
+		str = ft_strnew_char(' ', 0);
+	else
+	{
+		str = ft_strnew(22);
+		ft_itox(str, arg);
+	}
+	if (ft_chack_flag(lst, '#') && arg != 0)
+	{
+		ft_octotorp_hex(&str);
+		str_exa = ft_strnew_char('0', lst->exactness + 2);
+	}
+	else 
+		str_exa = ft_strnew_char('0', lst->exactness);
+//	ft_putendl(str_exa);
+//	ft_putendl(str);
+	str = ft_cop_str_right(str, str_exa);
+//	ft_putendl(str);
+	if (ft_chack_flag(lst, '-'))
+		str = ft_cop_str_left(str, str_wid);
+	else
+		str = ft_cop_str_right(str, str_wid);
+//	ft_putendl("Final str:");
+	lst->len_str = ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
+	
+}
+
+/*
+** Выводит на экран поинтер в шеснацетиричной форме
+*/
+
+void ft_put_pointer(t_format *lst, va_list lst_arg)
+{
+	uintmax_t	arg;
+
+	arg = ft_check_un_dimension(lst, lst_arg);
+	ft_pointer(lst, arg);
+}
 /*
 ** Распределяет строку, согдласно типу.
 ** Типы: c,s,p,d,i,o,u,x,X,f,%
@@ -784,22 +873,25 @@ void	ft_put_percent(t_format *lst)
 
 int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 {
-	if (*iter == 'i' || *iter == 'd')
+	ft_check_special_type(iter, lst);
+	if (*iter == 'i' || *iter == 'd' || *iter == 'D')
 		ft_put_decimal(lst, lst_arg);
 	if (*iter == 'x' || *iter == 'X')
 		ft_put_hexadecimal(lst, lst_arg, *iter);
-	if (*iter == 'o')
+	if (*iter == 'o' || *iter == 'O')
 		ft_put_octal(lst, lst_arg);
 	if (*iter == '%')
 		ft_put_percent(lst);
-	if (*iter == 'u')
+	if (*iter == 'u' || *iter == 'U' )
 		ft_put_unsigned(lst, lst_arg);
 //	if (*iter == 'f')
 //		ft_put_foat(lst, lst_arg);
-	if (*iter == 's')
+	if (*iter == 's' || *iter == 's')
 		ft_put_string(lst, lst_arg);
-	if (*iter == 'c')
+	if (*iter == 'c' || *iter == 'c')
 		ft_put_char(lst, lst_arg);
+	if (*iter == 'p')
+		ft_put_pointer(lst, lst_arg);
 	return (1); //Поправить!
 }
 

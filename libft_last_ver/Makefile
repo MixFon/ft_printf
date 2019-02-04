@@ -6,7 +6,7 @@
 #    By: widraugr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 13:07:44 by widraugr          #+#    #+#              #
-#    Updated: 2019/02/01 16:24:08 by widraugr         ###   ########.fr        #
+#    Updated: 2019/02/04 12:11:13 by widraugr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,10 @@ ft_itox.c\
 ft_printf.c\
 type_char.c\
 type_string.c\
-ft_un_itoa.c
+ft_un_itoa.c\
+type_float.c\
+type_float2.c\
+ft_concat_str.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -154,7 +157,10 @@ ft_itox.o\
 ft_printf.o\
 type_char.o\
 type_string.o\
-ft_un_itoa.o
+ft_un_itoa.o\
+type_float.o\
+type_float2.o\
+ft_concat_str.o
 
 all : $(NAME)
 

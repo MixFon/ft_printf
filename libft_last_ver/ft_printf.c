@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/01 16:19:00 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/04 12:21:17 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_istype(char c)
 {
 	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == '%' ||
 		c == 'o' || c == 'u' || c == 'x' || c == 'X' || c == 'C' || c == 'U' ||
-		c == 'S' || c == 'C' || c == 'D' || c == 'O')
+		c == 'S' || c == 'C' || c == 'D' || c == 'O' || c == 'f')
 		return (1);
 	else
 		return (0);
@@ -830,16 +830,11 @@ void ft_pointer(t_format *lst, uintmax_t arg)
 		str = ft_strnew_char(' ', 0);
 	else
 	{
-		str = ft_strnew(22);
+		str = ft_strnew(23);
 		ft_itox(str, arg);
 	}
-	if (ft_chack_flag(lst, '#') && arg != 0)
-	{
 		ft_octotorp_hex(&str);
 		str_exa = ft_strnew_char('0', lst->exactness + 2);
-	}
-	else 
-		str_exa = ft_strnew_char('0', lst->exactness);
 //	ft_putendl(str_exa);
 //	ft_putendl(str);
 	str = ft_cop_str_right(str, str_exa);
@@ -863,7 +858,7 @@ void ft_put_pointer(t_format *lst, va_list lst_arg)
 {
 	uintmax_t	arg;
 
-	arg = ft_check_un_dimension(lst, lst_arg);
+	arg = va_arg(lst_arg, long long int);
 	ft_pointer(lst, arg);
 }
 /*
@@ -884,8 +879,8 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 		ft_put_percent(lst);
 	if (*iter == 'u' || *iter == 'U' )
 		ft_put_unsigned(lst, lst_arg);
-//	if (*iter == 'f')
-//		ft_put_foat(lst, lst_arg);
+	if (*iter == 'f')
+		ft_put_float(lst, lst_arg);
 	if (*iter == 's' || *iter == 's')
 		ft_put_string(lst, lst_arg);
 	if (*iter == 'c' || *iter == 'c')

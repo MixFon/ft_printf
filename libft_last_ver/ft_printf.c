@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/04 12:21:17 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/04 16:36:01 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_istype(char c)
 {
 	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == '%' ||
 		c == 'o' || c == 'u' || c == 'x' || c == 'X' || c == 'C' || c == 'U' ||
-		c == 'S' || c == 'C' || c == 'D' || c == 'O' || c == 'f')
+		c == 'S' || c == 'C' || c == 'D' || c == 'O' || c == 'f' || c == 'F')
 		return (1);
 	else
 		return (0);
@@ -86,7 +86,7 @@ int	ft_read_exact(char *c, t_format *lst, va_list lst_arg)
 	int	i;
 
 	i = 0;
-	if (*c == '*')
+	if (*c == '*' )
 	{
 		lst->exactness = va_arg(lst_arg, int);
 		i++;
@@ -155,11 +155,11 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 	char	*c;
 
 	c = iter;
-	while (!ft_istype(*c) && *c != '\0')
+	while (!ft_istype(*c) && *c != '\0' )
 	{
 		while(ft_isflag(*c))
 			c += ft_read_flag(c, lst);
-		if (ft_isdigit(*c) || *c == '*')
+		while (ft_isdigit(*c) || *c == '*')
 			c += ft_read_width(c, lst, lst_arg);	
 		if (*c == '.')
 			c += ft_read_exact((c + 1), lst, lst_arg);	
@@ -879,7 +879,7 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 		ft_put_percent(lst);
 	if (*iter == 'u' || *iter == 'U' )
 		ft_put_unsigned(lst, lst_arg);
-	if (*iter == 'f')
+	if (*iter == 'f' || *iter == 'F')
 		ft_put_float(lst, lst_arg);
 	if (*iter == 's' || *iter == 's')
 		ft_put_string(lst, lst_arg);
@@ -888,6 +888,22 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 	if (*iter == 'p')
 		ft_put_pointer(lst, lst_arg);
 	return (1); //Поправить!
+}
+
+/*
+** Проверяет фалидность строки формата (символы после %
+*/
+
+int ft_chack_valid_format(char *iter)
+{
+	while (*iter != '\0')
+	{
+		if (!ft_isflag(*iter) && !ft_istype(*iter) && !ft_issize(*iter) &&
+				!ft_isdigit(*iter) && *iter != '.' && *iter != '*')
+			return (0);
+		iter++;
+	}
+	return (1);
 }
 
 /*
@@ -929,7 +945,14 @@ int ft_printf(const char *restrict format, ...)
 	while (*iter)
 	{
 		if (*iter == '%')
-			iter += ft_sort_arg(iter + 1, lst_arg, &len_str, &len_format);
+		{
+		  if(!ft_chack_valid_format((iter + 1)))
+		  {	
+			  iter++;
+		  }
+		  else 
+			  iter += ft_sort_arg(iter + 1, lst_arg, &len_str, &len_format);
+		}
 		else 
 			ft_putchar(*iter);
 		iter++;

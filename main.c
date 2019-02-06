@@ -129,10 +129,10 @@ int main()
 /*	ft_printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
 	printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
 */
-	int n1  = ft_printf("% s", NULL);
+	int n1  = ft_printf("%.2s is%-10s a string", "this", NULL);
 	ft_putstr("\n");
 	ft_putnbr(n1);
-	int n2  = printf("% s", NULL);
+	int n2  = printf("%.2s is%-10s a string", "this", NULL);
 	ft_putnbr(n2);
 	ft_putstr("\n");
 

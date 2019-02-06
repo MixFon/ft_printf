@@ -881,6 +881,7 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 	if (*iter == 'f' || *iter == 'F')
 		ft_put_float(lst, lst_arg, *iter);
 	if (*iter == 's' || *iter == 's')
+		//ft_putendl("sdt");
 		ft_put_string(lst, lst_arg);
 	if (*iter == 'c' || *iter == 'c')
 		ft_put_char(lst, lst_arg);

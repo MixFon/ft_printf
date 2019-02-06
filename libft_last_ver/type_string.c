@@ -50,18 +50,33 @@ char *ft_copy_string_left(char *str1, char *str2)
 		return (str2);
 	}
 }
+/*
+** Функция для сокращения места в ft_put_str_without_size
+*/
 
-int ft_put_str_without_size(t_format *lst, va_list lst_arg)
+void	ft_sourse(char **arg, char **str_wid, int *flag, t_format *lst)
+{
+	if (*arg == NULL)
+	{
+		*arg = ft_strdup("(null)");
+		*flag = 1;
+	}
+	*str_wid = ft_strnew_char(' ', lst->width);
+
+
+}
+
+void	ft_put_str_without_size(t_format *lst, va_list lst_arg)
 {
 	char	*str_wid;
 	char	*str_exac;
 	char	*str_res;
 	char	*arg;
+	int		flag;
 
+	flag = 0;
 	arg = va_arg(lst_arg, char*);
-	if (arg == NULL)
-		arg = ft_strdup("(null)");
-	str_wid = ft_strnew_char(' ', lst->width);
+	ft_sourse(&arg, &str_wid, &flag, lst);
 	if (lst->exactness == 0 && lst->dot == 0)
 		str_exac = ft_strdup(arg);
 	else
@@ -73,10 +88,20 @@ int ft_put_str_without_size(t_format *lst, va_list lst_arg)
 		str_res = ft_copy_string_left(str_exac, str_wid);
 	else
 		str_res = ft_copy_string_right(str_exac, str_wid);
+	if (flag)
+		ft_strdel(&arg);
 	ft_putstr(str_res);
-	return (ft_strlen(str_res));
+	lst->len_str = ft_strlen(str_res);
+	ft_strdel(&str_res);
 }
 
+void ft_put_string(t_format *lst, va_list lst_arg)
+{
+	//if (lst->size[0] == 'l' && lst->size[1] == '\0')
+	//	lst->len_str = ft_put_str_with_size(lst, lst_arg);
+	//else
+		 ft_put_str_without_size(lst, lst_arg);
+}
 
 /*int ft_put_str_without_size(t_format *lst, va_list lst_arg)
 {
@@ -122,11 +147,4 @@ int ft_put_str_without_size(t_format *lst, va_list lst_arg)
 	ft_putstr(str_res);
 }*/
 
-void ft_put_string(t_format *lst,va_list lst_arg)
-{
-	//if (lst->size[0] == 'l' && lst->size[1] == '\0')
-	//	lst->len_str = ft_put_str_with_size(lst, lst_arg);
-	//else
-		lst->len_str = ft_put_str_without_size(lst, lst_arg);
-}
 

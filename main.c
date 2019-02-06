@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft_last_ver/ft_printf.h"
-#define LONG_MAX 2147483647
-#define ULLONG_MAX 18446744073709551613
+#include <limits.h>
+#include <signal.h>
+//#define LONG_MAX 2147483647
 int main()
 {
 	int	*t;
@@ -94,9 +95,47 @@ int main()
 //	ft_printf("%s%s%s\\n", "test", "test", "test");
 	ft_printf("%C\\n", 15000);
 	*/
-	ft_printf(".%%.%%.%%.%%.%%.%%.%%.%%.");
+	/*ft_printf("1{%12.29m %}");
 	ft_putstr("\n");
-	printf(".%%.%%.%%.%%.%%.%%.%%.%%.");
+	printf("1{%1.29m %}");
+	ft_printf("2%%");
+	ft_putstr("\n");
+	printf("\n2%%");
+	ft_printf("3aa%%bb");
+	ft_putstr("\n");
+	printf("\n3aa%%bb");
+	ft_printf("4%%%%%%%%%%");
+	ft_putstr("\n");
+	printf("\n4%%%%%%%%%%");
+	ft_printf("5.%%.%%.%%.%%.%%.%%.%%.%%.");
+	ft_putstr("\n");
+	printf("\n5.%%.%%.%%.%%.%%.%%.%%.%%.");
+	ft_printf("6%");
+	ft_putstr("\n");
+	printf("\n6%");
+	ft_printf("7% Zaooo");
+	ft_putstr("\n");
+	printf("\n7% Zoooo");
+	ft_printf("8{%}");
+	ft_putstr("\n");
+	printf("\n8{%}");
+	ft_printf("9{% %}");
+	ft_putstr("\n");
+	printf("\n9{% %}");
+	ft_printf("10% ");
+	ft_putstr("\n");
+	printf("\n10% ");
+	*/
+/*	ft_printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
+	printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
+*/
+	int n1  = ft_printf("% s", NULL);
+	ft_putstr("\n");
+	ft_putnbr(n1);
+	int n2  = printf("% s", NULL);
+	ft_putnbr(n2);
+	ft_putstr("\n");
+
 	return 0;
 }
 

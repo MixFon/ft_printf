@@ -68,6 +68,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(intmax_t n);
+char				*ft_itoa_llint(long long int n);
 char				*ft_un_itoa(uintmax_t n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
@@ -88,5 +89,6 @@ char				*ft_strnjoinfree(char *s1, char const *s2);
 void				ft_itoo(char *str, uintmax_t n);
 void				ft_itox(char *str, uintmax_t n);
 int					ft_printf(const char *restrict format, ...);
+
 
 #endif

@@ -86,7 +86,9 @@ type_string.c\
 ft_un_itoa.c\
 type_float.c\
 type_float2.c\
-ft_concat_str.c
+ft_concat_str.c\
+ft_float_inf.c\
+ft_itoa_llint.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -160,7 +162,9 @@ type_string.o\
 ft_un_itoa.o\
 type_float.o\
 type_float2.o\
-ft_concat_str.o
+ft_concat_str.o\
+ft_float_inf.o\
+ft_itoa_llint.o
 
 all : $(NAME)
 

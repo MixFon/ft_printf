@@ -46,7 +46,7 @@ int	ft_istype(char c)
 
 int	ft_issize(char c)
 {
-	if (c == 'l' || c == 'h' || c == 'j' || c == 'z')
+	if (c == 'l' || c == 'h' || c == 'j' || c == 'z' || c == 'L')
 		return (1);
 	else
 		return (0);
@@ -141,11 +141,6 @@ int	ft_read_size(char *c, t_format *lst)
 }
 
 /*
-** Проверяет есть ли да
-** ных символов.
-*/
-
-/*
 ** Читает формат и записывает его в струкруру. Возвращает колличество прочитан-
 ** ных символов.
 */
@@ -157,6 +152,8 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 	c = iter;
 	while (!ft_istype(*c) && *c != '\0' )
 	{
+		//ft_putchar(*c);
+		//ft_putchar('\n');
 		while(ft_isflag(*c))
 			c += ft_read_flag(c, lst);
 		while (ft_isdigit(*c) || *c == '*')
@@ -165,6 +162,8 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 			c += ft_read_exact((c + 1), lst, lst_arg);	
 		if (ft_issize(*c))
 			c += ft_read_size(c , lst);
+		//while(ft_isflag(*c))
+		//	c += ft_read_flag(c, lst);
 		if (!ft_istype(*c))
 			c++;
 	}
@@ -585,7 +584,7 @@ void	ft_hexadecimal(t_format *lst, uintmax_t  arg, char char_x)
 		str = ft_strnew_char(' ', 0);
 	else
 	{
-		str = ft_strnew(22);
+		str = ft_strnew(23);
 		ft_itox(str, arg);
 	}
 	if (ft_chack_flag(lst, '#') && arg != 0)
@@ -657,7 +656,7 @@ void	ft_octal(t_format *lst, uintmax_t arg)
 		str = ft_strnew_char(' ', 0);
 	else
 	{
-		str = ft_strnew(21);
+		str = ft_strnew(23);
 		ft_itoo(str, arg);
 	}
 	if (ft_chack_flag(lst, '#'))
@@ -880,7 +879,7 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 	if (*iter == 'u' || *iter == 'U' )
 		ft_put_unsigned(lst, lst_arg);
 	if (*iter == 'f' || *iter == 'F')
-		ft_put_float(lst, lst_arg);
+		ft_put_float(lst, lst_arg, *iter);
 	if (*iter == 's' || *iter == 's')
 		ft_put_string(lst, lst_arg);
 	if (*iter == 'c' || *iter == 'c')
@@ -894,15 +893,31 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 ** Проверяет фалидность строки формата (символы после %
 */
 
-int ft_chack_valid_format(char *iter)
+int ft_chack_valid_format(char *iter, char **iter_ptr, int *len)
 {
-	while (*iter != '\0')
+	int	i;
+
+	i = 0;
+	if (*iter == '\0')
 	{
-		if (!ft_isflag(*iter) && !ft_istype(*iter) && !ft_issize(*iter) &&
+		(*len)++;
+		return (0);
+	}
+	while (!ft_istype(*iter))
+	{
+		if ((!ft_isflag(*iter) && !ft_issize(*iter) &&
 				!ft_isdigit(*iter) && *iter != '.' && *iter != '*')
+				|| *(iter + 0) == '\0')
+		{
+			*iter_ptr += i;
+			//ft_putnbr(*len);
+			*len = i + 1;
 			return (0);
+		}
+		i++;
 		iter++;
 	}
+	//*iter_ptr += i;
 	return (1);
 }
 
@@ -937,20 +952,18 @@ int ft_printf(const char *restrict format, ...)
 	va_list		lst_arg;
 	size_t		len_str;
 	size_t		len_format;
+	int			len;
 	
+	len = 0;
 	len_str = 0;
 	len_format = 0;
 	va_start(lst_arg, format);
 	iter = (char *)format;
-	while (*iter)
+	while (*iter != '\0')
 	{
 		if (*iter == '%')
 		{
-		  if(!ft_chack_valid_format((iter + 1)))
-		  {	
-			  iter++;
-		  }
-		  else 
+		  if(ft_chack_valid_format((iter + 1), &iter, &len))
 			  iter += ft_sort_arg(iter + 1, lst_arg, &len_str, &len_format);
 		}
 		else 
@@ -958,5 +971,5 @@ int ft_printf(const char *restrict format, ...)
 		iter++;
 	}
 	va_end(lst_arg);
-	return ((iter - format) + len_str - len_format);	
+	return ((iter - format) - len + len_str - len_format);	
 }

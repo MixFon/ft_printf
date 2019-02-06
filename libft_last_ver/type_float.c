@@ -40,7 +40,7 @@ char *ft_float_width_with_zero(t_format *lst, char *str)
 	return (str_res);
 }
 
-char *ft_float_width(t_format *lst, char *str, double arg)
+char *ft_float_width(t_format *lst, char *str, long double arg)
 {
 	char 	*str_res;
 
@@ -65,12 +65,17 @@ char *ft_float_width(t_format *lst, char *str, double arg)
 	return (str_res);
 }
 
-void	ft_put_float(t_format *lst, va_list lst_arg)
+void	ft_put_float(t_format *lst, va_list lst_arg, char type)
 {
-	char	*str;
-	double	arg;
+	char		*str;
+	long double	arg;
 
-	arg = va_arg(lst_arg, double);
+	if (lst->size[0] == 'L')
+		arg = va_arg(lst_arg, long double);
+	else
+		arg = va_arg(lst_arg, double);
+	if (ft_float_inf(lst, arg, type))
+		return;
 	if (!lst->dot)
 		str = ft_float_str(arg, 6);
 	else
@@ -83,7 +88,7 @@ void	ft_put_float(t_format *lst, va_list lst_arg)
 	}
 	if (arg >= 0 && ft_chack_flag(lst, '+'))
 		str = ft_add_symb(str, '+');
-	else	if (arg >= 0 && ft_chack_flag(lst, ' '))
+	else if (arg >= 0 && ft_chack_flag(lst, ' '))
 		str = ft_add_symb(str, ' ');
 	str = ft_float_width(lst, str, arg);
 	lst->len_str = ft_strlen(str);

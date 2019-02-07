@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   ft_strncpy_wchar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/03 09:56:05 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 12:09:16 by widraugr         ###   ########.fr       */
+/*   Created: 2019/02/07 10:48:15 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/07 10:51:42 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(char **as)
+wchar_t	*ft_strncpy_wchar(wchar_t *dst, const wchar_t *src, size_t len)
 {
-	if (as != NULL && *as != NULL)
+	size_t	i;
+	int		bl;
+
+	i = 0;
+	bl = 1;
+	while (i < len)
 	{
-		free(*as);
-		*as = NULL;
+		if (src[i] == '\0')
+			bl = 0;
+		if (bl)
+			dst[i] = src[i];
+		else
+			dst[i] = '\0';
+		i++;
 	}
+	return (dst);
 }

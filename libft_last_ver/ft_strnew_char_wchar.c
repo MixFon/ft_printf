@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   ft_strnew_wchar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/03 09:56:05 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 12:09:16 by widraugr         ###   ########.fr       */
+/*   Created: 2019/02/07 10:26:56 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/07 10:53:15 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(char **as)
-{
-	if (as != NULL && *as != NULL)
-	{
-		free(*as);
-		*as = NULL;
-	}
+/*
+** Create string type wchar_t*/
+
+wchar_t *ft_strnew_char_wchar(wchar_t c, size_t len)
+{	
+	wchar_t *ptr;
+
+	ptr = ft_strnew_wchar(len);
+	ptr =(wchar_t *)ft_memset((wchar_t *)ptr, c, len);
+	return (ptr);
 }

@@ -6,7 +6,7 @@
 #    By: widraugr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 13:07:44 by widraugr          #+#    #+#              #
-#    Updated: 2019/02/04 12:11:13 by widraugr         ###   ########.fr        #
+#    Updated: 2019/02/07 12:20:31 by widraugr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,19 @@ type_float.c\
 type_float2.c\
 ft_concat_str.c\
 ft_float_inf.c\
-ft_itoa_llint.c
+ft_itoa_llint.c\
+ft_copy_string_left.c\
+ft_copy_string_right.c\
+ft_copy_string_left_wchar.c\
+ft_copy_string_right_wchar.c\
+ft_strdup_wchar.c\
+ft_strnew_char_wchar.c\
+ft_strnew_wchar.c\
+ft_strncpy_wchar.c\
+ft_strdel_wchar.c\
+ft_strlen_wchar.c\
+ft_putchar_wchar.c\
+ft_putstr_wchar.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -164,7 +176,19 @@ type_float.o\
 type_float2.o\
 ft_concat_str.o\
 ft_float_inf.o\
-ft_itoa_llint.o
+ft_itoa_llint.o\
+ft_copy_string_left.o\
+ft_copy_string_right.o\
+ft_copy_string_left_wchar.o\
+ft_copy_string_right_wchar.o\
+ft_strnew_char_wchar.o\
+ft_strnew_wchar.o\
+ft_strncpy_wchar.o\
+ft_strlen_wchar.o\
+ft_putchar_wchar.o\
+ft_strdel_wchar.o\
+ft_strdup_wchar.o\
+ft_putstr_wchar.o
 
 all : $(NAME)
 

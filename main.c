@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 13:43:38 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/04 16:36:04 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/07 12:33:59 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //#define LONG_MAX 2147483647
 int main()
 {
-	int	*t;
+//	int	*t;
 //	char	*b;
 //	char	*c;
 //	unsigned int	n;
@@ -129,10 +129,14 @@ int main()
 /*	ft_printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
 	printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
 */
-	int n1  = ft_printf("%.2s is%-10s a string", "this", NULL);
+	int n1  = ft_printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",
+				L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ",
+					L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
 	ft_putstr("\n");
 	ft_putnbr(n1);
-	int n2  = printf("%.2s is%-10s a string", "this", NULL);
+	int n2  = printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",
+				L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ",
+					L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
 	ft_putnbr(n2);
 	ft_putstr("\n");
 

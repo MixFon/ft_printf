@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_wchar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/03 09:56:05 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 12:09:16 by widraugr         ###   ########.fr       */
+/*   Created: 2019/02/07 11:26:11 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/07 11:27:18 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(char **as)
+void	ft_putstr_wchar(wchar_t const *s)
 {
-	if (as != NULL && *as != NULL)
-	{
-		free(*as);
-		*as = NULL;
-	}
+	if (s)
+		while (*(s))
+			ft_putchar_wchar(*s++);
 }

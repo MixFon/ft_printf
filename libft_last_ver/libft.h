@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 11:19:04 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/01 16:19:33 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/07 12:22:05 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,17 @@ char				*ft_strnjoinfree(char *s1, char const *s2);
 void				ft_itoo(char *str, uintmax_t n);
 void				ft_itox(char *str, uintmax_t n);
 int					ft_printf(const char *restrict format, ...);
-
+char				*ft_copy_string_right(char *str1, char *str2);
+char				*ft_copy_string_left(char *str1, char *str2);
+wchar_t				*ft_strdup_wchar(const wchar_t *s1);
+wchar_t				*ft_strnew_char_wchar(wchar_t c, size_t len);
+wchar_t				*ft_strnew_wchar(size_t len);
+wchar_t				*ft_strncpy_wchar(wchar_t *dst, const wchar_t *src, size_t len);
+void				ft_strdel_wchar(wchar_t **as);
+size_t				ft_strlen_wchar (const wchar_t *s);
+wchar_t				*ft_copy_string_right_wchar(wchar_t *str1, wchar_t *str2);
+wchar_t				*ft_copy_string_left_wchar(wchar_t *str1, wchar_t *str2);
+void				ft_putchar_wchar(wchar_t cht);
+void				ft_putstr_wchar(wchar_t const *s);
 
 #endif

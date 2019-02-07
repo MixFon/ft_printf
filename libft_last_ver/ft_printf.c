@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/04 16:36:01 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/07 12:31:12 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -880,10 +880,9 @@ int ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
 		ft_put_unsigned(lst, lst_arg);
 	if (*iter == 'f' || *iter == 'F')
 		ft_put_float(lst, lst_arg, *iter);
-	if (*iter == 's' || *iter == 's')
-		//ft_putendl("sdt");
-		ft_put_string(lst, lst_arg);
-	if (*iter == 'c' || *iter == 'c')
+	if (*iter == 's' || *iter == 'S')
+		ft_put_string(lst, lst_arg, *iter);
+	if (*iter == 'c' || *iter == 'C')
 		ft_put_char(lst, lst_arg);
 	if (*iter == 'p')
 		ft_put_pointer(lst, lst_arg);
@@ -911,14 +910,12 @@ int ft_chack_valid_format(char *iter, char **iter_ptr, int *len)
 				|| *(iter + 0) == '\0')
 		{
 			*iter_ptr += i;
-			//ft_putnbr(*len);
 			*len = i + 1;
 			return (0);
 		}
 		i++;
 		iter++;
 	}
-	//*iter_ptr += i;
 	return (1);
 }
 

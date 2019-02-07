@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:30:40 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 12:31:12 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:26:48 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -541,7 +541,7 @@ void ft_put_decimal(t_format *lst, va_list lst_arg)
 ** Вставлят 0x перед восьмиричным числом, если есть флаг #
 ** Проверить на утечки! 
 */
-
+/*
 void ft_octotorp_hex(char **str)
 {
 	char *s;
@@ -549,7 +549,7 @@ void ft_octotorp_hex(char **str)
 	s = *str;
 	*str = ft_strjoin("0x", *str);
 	free(s);
-}
+}*/
 /*
 ** Переволит все буквы в верхний регистр
 */
@@ -584,7 +584,7 @@ void	ft_hexadecimal(t_format *lst, uintmax_t  arg, char char_x)
 		str = ft_strnew_char(' ', 0);
 	else
 	{
-		str = ft_strnew(23);
+		str = ft_strnew(25);
 		ft_itox(str, arg);
 	}
 	if (ft_chack_flag(lst, '#') && arg != 0)
@@ -771,6 +771,19 @@ void ft_put_char(t_format *lst, va_list lst_arg)
 */
 
 /*
+** Проверяет является символ типа кобинированным символом SCDOU.
+*/
+
+void ft_check_special_type(char *iter, t_format *lst)
+{
+	if (*iter == 'U' || *iter == 'D' || *iter == 'O')
+	{
+		lst->size[0] = 'l';
+		lst->size[1] = 'l';
+	}
+}
+
+/*
 ** Выводит знак процента %
 */
 
@@ -796,70 +809,6 @@ void	ft_put_percent(t_format *lst)
 
 }
 
-/*
-** Проверяет является символ типа кобинированным символом SCDOU.
-*/
-
-void ft_check_special_type(char *iter, t_format *lst)
-{
-	if (*iter == 'U' || *iter == 'D' || *iter == 'O')
-	{
-		lst->size[0] = 'l';
-		lst->size[1] = 'l';
-	}
-}
-
-/*
-** Выводит на экран поинтер в шеснацетиричной форме
-*/
-
-void ft_pointer(t_format *lst, uintmax_t arg)
-{
-	char	*str_wid;
-	char	*str_exa;
-	char	*str;
-
-	if (ft_chack_flag(lst, '0') && lst->exactness == 0 &&
-			!ft_chack_flag(lst, '-'))
-		str_wid = ft_strnew_char('0', lst->width);
-	else 
-		str_wid = ft_strnew_char(' ', lst->width);
-//	ft_putendl(str_wid);
-	if (arg == 0 && lst->dot == 1)
-		str = ft_strnew_char(' ', 0);
-	else
-	{
-		str = ft_strnew(23);
-		ft_itox(str, arg);
-	}
-		ft_octotorp_hex(&str);
-		str_exa = ft_strnew_char('0', lst->exactness + 2);
-//	ft_putendl(str_exa);
-//	ft_putendl(str);
-	str = ft_cop_str_right(str, str_exa);
-//	ft_putendl(str);
-	if (ft_chack_flag(lst, '-'))
-		str = ft_cop_str_left(str, str_wid);
-	else
-		str = ft_cop_str_right(str, str_wid);
-//	ft_putendl("Final str:");
-	lst->len_str = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
-	
-}
-
-/*
-** Выводит на экран поинтер в шеснацетиричной форме
-*/
-
-void ft_put_pointer(t_format *lst, va_list lst_arg)
-{
-	uintmax_t	arg;
-
-	arg = va_arg(lst_arg, long long int);
-	ft_pointer(lst, arg);
-}
 /*
 ** Распределяет строку, согдласно типу.
 ** Типы: c,s,p,d,i,o,u,x,X,f,%

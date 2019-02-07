@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 13:43:38 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 12:33:59 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:25:29 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ int main()
 	ft_printf("%%#08x\\n", 42);
 	ft_printf("%x\\n", 1000);
 	ft_printf("%#X\\n", 1000);
-//	ft_printf("%s\\n", NULL);
+	ft_printf("%s\\n", NULL);
 	ft_printf("%S\\n", L"ݗݜशব");
-//	ft_printf("%s%s\\n", "test", "test");
-//	ft_printf("%s%s%s\\n", "test", "test", "test");
-	ft_printf("%C\\n", 15000);
+	ft_printf("%s%s\\n", "test", "test");
+	ft_printf("%s%s%s\\n", "test", "test", "test");
+	ft_printf("%C\\n", 1500);
 	*/
 	/*ft_printf("1{%12.29m %}");
 	ft_putstr("\n");
@@ -128,15 +128,13 @@ int main()
 	*/
 /*	ft_printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
 	printf("{%-12.3f}\n{%#-o}\n{%s}\n{%#-10.3f}\n", 16.5, 13, "qwerrty", 15.5);
-*/
-	int n1  = ft_printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",
-				L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ",
-					L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
+xx*/
+	int a = 1;
+	int *b = &a;
+	int n1  = ft_printf("%20.2p", b);
 	ft_putstr("\n");
 	ft_putnbr(n1);
-	int n2  = printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",
-				L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ",
-					L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
+	int n2  = printf("%20.2p", b);
 	ft_putnbr(n2);
 	ft_putstr("\n");
 

@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 10:42:41 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 15:31:23 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/04 12:15:49 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ typedef struct	s_format
 }				t_format;
 
 int		ft_printf(const char *restrict format, ...);
+//void	ft_itoo(char *str, int n);
+//void	ft_itox(char *str, int n);
 char 	*ft_strnew_char(int c, size_t len);
-void 	ft_put_string(t_format *lst,va_list lst_arg, char s);
+void 	ft_put_string(t_format *lst,va_list lst_arg);
 int 	ft_chack_flag(t_format *lst, char flag);
 char 	*ft_copy_string_left(char *str1, char *str2);
 char 	*ft_copy_string_right(char *str1, char *str2);
@@ -40,7 +42,5 @@ char*	ft_fraction_exact(char* fract_str, int exact);
 void	ft_put_float(t_format *lst,va_list lst_arg, char type);
 char*	ft_round(char* fract_str);
 int		ft_float_inf(t_format *lst, long double	arg, char type);
-void	ft_put_pointer(t_format *lst, va_list lst_arg);
-void	ft_octotorp_hex(char **str);
 
 #endif

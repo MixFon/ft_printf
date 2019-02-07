@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   type_char.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/07 12:28:11 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/07 13:52:41 by widraugr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void ft_put_char_not_zero(t_format *lst, char* ch)
@@ -8,12 +20,14 @@ void ft_put_char_not_zero(t_format *lst, char* ch)
 
 	str_wid = ft_strnew_char(' ', lst->width);
 	str_exac = ft_strdup(ch);
+	ft_strdel(&ch);
 	if (ft_chack_flag(lst, '-'))
 		str_res = ft_copy_string_left(str_exac, str_wid);
 	else
 		str_res = ft_copy_string_right(str_exac, str_wid);
 	ft_putstr(str_res);
 	lst->len_str = ft_strlen(str_res);
+	ft_strdel(&str_res);
 }
 
 void ft_put_char_zero(t_format *lst)

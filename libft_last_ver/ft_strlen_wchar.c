@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:05:29 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 11:08:08 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/07 13:39:53 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen_wchar(const wchar_t *s)
 	size_t i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i] != L'\0')
 		i++;
 	return (i);
 }

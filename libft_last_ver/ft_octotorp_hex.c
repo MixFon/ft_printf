@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_copy_string_right.c                             :+:      :+:    :+:   */
+/*   ft_octotorp_hex.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/07 09:49:08 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 15:49:31 by widraugr         ###   ########.fr       */
+/*   Created: 2019/02/07 15:24:33 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/07 16:27:01 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char *ft_copy_string_right(char *str1, char *str2)
+void ft_octotorp_hex(char **str)
 {
-	int	len1;
-	int	len2;
+	char *s;
 
-	len1 = (int)ft_strlen(str1);
-	len2 = (int)ft_strlen(str2);
-	if (len1 >= len2)
-	{
-		ft_strdel(&str2);
-		return (str1);
-	}
-	else
-	{
-		while (len2 >= 0 && len1 >= 0)
-			str2[len2--] = str1[len1--];
-		ft_strdel(&str1);
-		return (str2);
-	}
+	s = *str;
+	*str = ft_strjoin("0x", *str);
+	free(s);
 }

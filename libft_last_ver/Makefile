@@ -6,7 +6,7 @@
 #    By: widraugr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 13:07:44 by widraugr          #+#    #+#              #
-#    Updated: 2019/02/07 12:20:31 by widraugr         ###   ########.fr        #
+#    Updated: 2019/02/07 15:40:51 by widraugr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,9 @@ ft_strncpy_wchar.c\
 ft_strdel_wchar.c\
 ft_strlen_wchar.c\
 ft_putchar_wchar.c\
-ft_putstr_wchar.c
+ft_putstr_wchar.c\
+ft_put_pointer.c\
+ft_octotorp_hex.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -188,7 +190,9 @@ ft_strlen_wchar.o\
 ft_putchar_wchar.o\
 ft_strdel_wchar.o\
 ft_strdup_wchar.o\
-ft_putstr_wchar.o
+ft_putstr_wchar.o\
+ft_put_pointer.o\
+ft_octotorp_hex.o
 
 all : $(NAME)
 

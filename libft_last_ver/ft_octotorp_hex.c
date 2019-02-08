@@ -6,13 +6,13 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 15:24:33 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 16:27:01 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:45:51 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_octotorp_hex(char **str)
+void	ft_octotorp_hex(char **str)
 {
 	char *s;
 

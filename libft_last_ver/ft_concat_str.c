@@ -6,7 +6,7 @@
 /*   By: eskeleto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 13:28:34 by eskeleto          #+#    #+#             */
-/*   Updated: 2018/12/28 13:41:59 by eskeleto         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:09:55 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ char	*ft_concat_str(char *str1, char *str2)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	if (!(result = (char*)malloc(sizeof(char) *
 					(ft_strlen(str1) + ft_strlen(str2) + 1))))
 		return (NULL);
-	while (str1[i] != '\0')
+	while (str1[++i] != '\0')
 	{
 		result[j] = str1[i];
-		i++;
 		j++;
 	}
 	free(str1);
+	free(str2);
 	i = 0;
 	while (str2[i] != '\0')
 	{

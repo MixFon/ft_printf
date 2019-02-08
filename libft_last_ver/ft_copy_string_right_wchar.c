@@ -6,13 +6,13 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:14:35 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 13:48:57 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:37:58 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-wchar_t *ft_copy_string_right_wchar(wchar_t *str1, wchar_t *str2)
+wchar_t	*ft_copy_string_right_wchar(wchar_t *str1, wchar_t *str2)
 {
 	int	len1;
 	int	len2;

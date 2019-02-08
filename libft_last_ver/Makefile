@@ -6,7 +6,7 @@
 #    By: widraugr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 13:07:44 by widraugr          #+#    #+#              #
-#    Updated: 2019/02/07 15:40:51 by widraugr         ###   ########.fr        #
+#    Updated: 2019/02/08 13:05:48 by widraugr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,19 @@ ft_strlen_wchar.c\
 ft_putchar_wchar.c\
 ft_putstr_wchar.c\
 ft_put_pointer.c\
-ft_octotorp_hex.c
+ft_octotorp_hex.c\
+ft_put_percent.c\
+ft_check_un_dimension.c\
+ft_put_unsigned.c\
+ft_create_new_lst_strchar.c\
+ft_put_octal.c\
+ft_put_hexadecimal.c\
+ft_cop_str_left_or_right.c\
+ft_put_decimal.c\
+ft_check_dimension.c\
+ft_read_format.c\
+ft_is_flag_type_size.c\
+ft_check_flag_spetia_type.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -192,7 +204,19 @@ ft_strdel_wchar.o\
 ft_strdup_wchar.o\
 ft_putstr_wchar.o\
 ft_put_pointer.o\
-ft_octotorp_hex.o
+ft_octotorp_hex.o\
+ft_put_percent.o\
+ft_check_un_dimension.o\
+ft_put_unsigned.o\
+ft_create_new_lst_strchar.o\
+ft_put_octal.o\
+ft_put_hexadecimal.o\
+ft_cop_str_left_or_right.o\
+ft_put_decimal.o\
+ft_check_dimension.o\
+ft_read_format.o\
+ft_is_flag_type_size.o\
+ft_check_flag_spetia_type.o
 
 all : $(NAME)
 

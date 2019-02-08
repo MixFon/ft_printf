@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 12:09:44 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/01 16:16:51 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:43:12 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*ft_recstr(char *str, int neg)
 char		*ft_itoa_llint(long long int n)
 {
 	size_t			i;
-	long long int		num;
+	long long int	num;
 	int				neg;
 	char			str[21];
 	char			*rtnstr;

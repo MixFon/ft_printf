@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 09:48:01 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 10:58:48 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:36:14 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Copy str2 в str1 whith begien both string.
 */
 
-char *ft_copy_string_left(char *str1, char *str2)
+char	*ft_copy_string_left(char *str1, char *str2)
 {
 	int	len1;
 	int	len2;

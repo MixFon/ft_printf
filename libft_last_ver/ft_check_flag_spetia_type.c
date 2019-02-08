@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew_wchar.c                                  :+:      :+:    :+:   */
+/*   ft_check_flag_spetia_type.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/07 10:26:56 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/08 12:48:27 by widraugr         ###   ########.fr       */
+/*   Created: 2019/02/08 12:16:50 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/08 12:24:46 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-/*
-** Create string type wchar_t
-*/
-
-wchar_t	*ft_strnew_char_wchar(wchar_t c, size_t len)
+int		ft_chack_flag(t_format *lst, char flag)
 {
-	wchar_t *ptr;
+	int i;
 
-	ptr = ft_strnew_wchar(len);
-	ptr = (wchar_t *)ft_memset((wchar_t *)ptr, c, len);
-	return (ptr);
+	i = -1;
+	while (++i < 5)
+		if (lst->flag[i] == flag)
+			return (1);
+	return (0);
+}
+
+void	ft_check_special_type(char *iter, t_format *lst)
+{
+	if (*iter == 'U' || *iter == 'D' || *iter == 'O')
+	{
+		lst->size[0] = 'l';
+		lst->size[1] = 'l';
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 13:43:38 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 16:25:29 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:09:53 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,10 @@ int main()
 xx*/
 	int a = 1;
 	int *b = &a;
-	int n1  = ft_printf("%20.2p", b);
+	int n1  = ft_printf("{%.*f}", -5, 42);
 	ft_putstr("\n");
 	ft_putnbr(n1);
-	int n2  = printf("%20.2p", b);
+	int n2  = printf("{%.*f}", -5, 42);
 	ft_putnbr(n2);
 	ft_putstr("\n");
 

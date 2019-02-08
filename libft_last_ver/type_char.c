@@ -6,17 +6,17 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 12:28:11 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 13:52:41 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:50:54 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_put_char_not_zero(t_format *lst, char* ch)
+void	ft_put_char_not_zero(t_format *lst, char *ch)
 {
-	char* str_wid;
-	char* str_exac;
-	char* str_res;
+	char *str_wid;
+	char *str_exac;
+	char *str_res;
 
 	str_wid = ft_strnew_char(' ', lst->width);
 	str_exac = ft_strdup(ch);
@@ -30,9 +30,9 @@ void ft_put_char_not_zero(t_format *lst, char* ch)
 	ft_strdel(&str_res);
 }
 
-void ft_put_char_zero(t_format *lst)
+void	ft_put_char_zero(t_format *lst)
 {
-	char* str_wid;
+	char *str_wid;
 
 	if (lst->width == 0)
 	{
@@ -57,7 +57,7 @@ void ft_put_char_zero(t_format *lst)
 	}
 }
 
-void ft_put_char(t_format *lst,va_list lst_arg)
+void	ft_put_char(t_format *lst, va_list lst_arg)
 {
 	char	*ch;
 

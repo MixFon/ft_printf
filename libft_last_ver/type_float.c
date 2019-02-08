@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   type_float.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/08 12:51:06 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/08 14:51:13 by widraugr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char	*ft_add_symb(char *str, char ch)
@@ -9,7 +21,7 @@ char	*ft_add_symb(char *str, char ch)
 	return (newstr);
 }
 
-char *ft_float_width_without_zero(t_format *lst, char *str)
+char	*ft_float_width_without_zero(t_format *lst, char *str)
 {
 	char	*str_res;
 	char	*str_wid;
@@ -22,7 +34,7 @@ char *ft_float_width_without_zero(t_format *lst, char *str)
 	return (str_res);
 }
 
-char *ft_float_width_with_zero(t_format *lst, char *str)
+char	*ft_float_width_with_zero(t_format *lst, char *str)
 {
 	char	*str_res;
 	char	*str_wid;
@@ -40,15 +52,14 @@ char *ft_float_width_with_zero(t_format *lst, char *str)
 	return (str_res);
 }
 
-char *ft_float_width(t_format *lst, char *str, long double arg)
+char	*ft_float_width(t_format *lst, char *str, long double arg)
 {
-	char 	*str_res;
+	char	*str_res;
 
-	if (!ft_chack_flag(lst,'0'))
+	if (!ft_chack_flag(lst, '0'))
 		str_res = ft_float_width_without_zero(lst, str);
 	else
 	{
-
 		if (arg < 0 || ft_chack_flag(lst, '+') || ft_chack_flag(lst, ' '))
 			str[0] = '0';
 		str_res = ft_float_width_with_zero(lst, str);
@@ -75,7 +86,7 @@ void	ft_put_float(t_format *lst, va_list lst_arg, char type)
 	else
 		arg = va_arg(lst_arg, double);
 	if (ft_float_inf(lst, arg, type))
-		return;
+		return ;
 	if (!lst->dot)
 		str = ft_float_str(arg, 6);
 	else
@@ -91,6 +102,5 @@ void	ft_put_float(t_format *lst, va_list lst_arg, char type)
 	else if (arg >= 0 && ft_chack_flag(lst, ' '))
 		str = ft_add_symb(str, ' ');
 	str = ft_float_width(lst, str, arg);
-	lst->len_str = ft_strlen(str);
-	ft_putstr(str);
+	ft_lenstr_putstr_delstr(lst, str);
 }

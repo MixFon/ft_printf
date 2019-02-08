@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   type_float2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/08 14:17:25 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/08 14:49:21 by widraugr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char *ft_fraction_str(long double num)
+char	*ft_fraction_str(long double num)
 {
 	char		*str;
 	long double	fract;
-	int 		i;
+	int			i;
 
 	if (num < 0)
 		num = num * (-1);
@@ -51,7 +63,7 @@ char	*ft_change_symb(char *fract_str, int *i, int *end)
 	return (fract_str);
 }
 
-char*	ft_round(char* fract_str)
+char	*ft_round(char *fract_str)
 {
 	int i;
 	int end;
@@ -62,7 +74,8 @@ char*	ft_round(char* fract_str)
 	{
 		fract_str = ft_change_symb(fract_str, &i, &end);
 		i--;
-		while (fract_str[i] == '0') {
+		while (fract_str[i] == '0')
+		{
 			fract_str = ft_change_symb(fract_str, &i, &end);
 			i--;
 		}
@@ -71,7 +84,7 @@ char*	ft_round(char* fract_str)
 	return (fract_str);
 }
 
-char* ft_fraction_exact(char* fract_str, int exact)
+char	*ft_fraction_exact(char *fract_str, int exact)
 {
 	int	i;
 
@@ -92,9 +105,8 @@ char* ft_fraction_exact(char* fract_str, int exact)
 	return (fract_str);
 }
 
-char*	ft_float_str(long double num, int exact)
+char	*ft_float_str(long double num, int exact)
 {
 	return (ft_concat_str(ft_itoa((intmax_t)num),
 			ft_fraction_exact(ft_fraction_str(num), exact + 1)));
 }
-

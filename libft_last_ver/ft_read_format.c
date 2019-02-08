@@ -45,10 +45,7 @@ int	ft_read_exact(char *c, t_format *lst, va_list lst_arg)
 	{
 		lst->exactness = va_arg(lst_arg, int);
 		if (lst->exactness < 0)
-		{
-			lst->exactness = lst->exactness * -1;
-			lst->flag[0] = '-';
-		}
+			lst->exactness = 0;
 		i++;
 	}
 	else
@@ -63,12 +60,16 @@ int	ft_read_exact(char *c, t_format *lst, va_list lst_arg)
 
 int	ft_read_flag(char *c, t_format *lst)
 {
-	static int	i;
+	int	i;
 
-	if (ft_isflag(*c))
+	i = 0;
+	while (ft_isflag(*c))
+	{
 		lst->flag[i] = *c;
-	i++;
-	return (1);
+		i++;
+		c++;
+	}
+	return (i);
 }
 
 int	ft_read_size(char *c, t_format *lst)
@@ -94,7 +95,7 @@ int	ft_read_format(char *iter, t_format *lst, va_list lst_arg)
 	c = iter;
 	while (!ft_istype(*c) && *c != '\0')
 	{
-		while (ft_isflag(*c))
+		if (ft_isflag(*c))
 			c += ft_read_flag(c, lst);
 		while (ft_isdigit(*c) || *c == '*')
 			c += ft_read_width(c, lst, lst_arg);

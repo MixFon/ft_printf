@@ -18,7 +18,10 @@ void	ft_put_char_not_zero(t_format *lst, char *ch)
 	char *str_exac;
 	char *str_res;
 
-	str_wid = ft_strnew_char(' ', lst->width);
+	if (ft_chack_flag(lst, '0') && !ft_chack_flag(lst, '-'))
+		str_wid = ft_strnew_char('0', lst->width);
+	else
+		str_wid = ft_strnew_char(' ', lst->width);
 	str_exac = ft_strdup(ch);
 	ft_strdel(&ch);
 	if (ft_chack_flag(lst, '-'))
@@ -30,31 +33,37 @@ void	ft_put_char_not_zero(t_format *lst, char *ch)
 	ft_strdel(&str_res);
 }
 
-void	ft_put_char_zero(t_format *lst)
+void	ft_source_char_zero(t_format *lst)
 {
 	char *str_wid;
 
+	if (ft_chack_flag(lst, '-'))
+	{
+		ft_putchar('\0');
+		str_wid = ft_strnew_char(' ', lst->width - 1);
+		ft_putstr(str_wid);
+	}
+	else
+	{
+		if (ft_chack_flag(lst, '0'))
+			str_wid = ft_strnew_char('0', lst->width - 1);
+		else
+			str_wid = ft_strnew_char(' ', lst->width - 1);
+		ft_putstr(str_wid);
+		ft_putchar('\0');
+	}
+	lst->len_str = lst->width;
+}
+
+void	ft_put_char_zero(t_format *lst)
+{
 	if (lst->width == 0)
 	{
 		ft_putchar('\0');
 		lst->len_str = 1;
 	}
 	else
-	{
-		if (ft_chack_flag(lst, '-'))
-		{
-			ft_putchar('\0');
-			str_wid = ft_strnew_char(' ', lst->width - 1);
-			ft_putstr(str_wid);
-		}
-		else
-		{
-			str_wid = ft_strnew_char(' ', lst->width - 1);
-			ft_putstr(str_wid);
-			ft_putchar('\0');
-		}
-		lst->len_str = lst->width;
-	}
+		ft_source_char_zero(lst);
 }
 
 void	ft_put_char(t_format *lst, va_list lst_arg)

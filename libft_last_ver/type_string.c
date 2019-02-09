@@ -19,7 +19,10 @@ void	ft_sourse(char **arg, char **str_wid, int *flag, t_format *lst)
 		*arg = ft_strdup("(null)");
 		*flag = 1;
 	}
-	*str_wid = ft_strnew_char(' ', lst->width);
+	if (ft_chack_flag(lst, '0') && !ft_chack_flag(lst, '-'))
+		*str_wid = ft_strnew_char('0', lst->width);
+	else
+		*str_wid = ft_strnew_char(' ', lst->width);
 }
 
 void	ft_put_str_without_size(t_format *lst, va_list lst_arg)
@@ -56,7 +59,7 @@ void	ft_sourse_wchar(wchar_t **arg, wchar_t **str_wid, int *flag,
 {
 	if (*arg == NULL)
 	{
-		*arg = ft_strdup_wchar((const wchar_t*)"(null)");
+		*arg = ft_strdup_wchar(L"(null)");
 		*flag = 1;
 	}
 	*str_wid = ft_strnew_char_wchar(' ', lst->width);

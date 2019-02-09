@@ -16,11 +16,14 @@
 ** If there is a flag # insert 0.
 */
 
-void	ft_octotorp_octal(char **str)
+void	ft_octotorp_octal(char **str, uintmax_t arg, t_format *lst)
 {
 	char *s;
 
-	s = ft_strnew_char('0', ft_strlen(*str) + 1);
+	if(arg == 0 && lst->dot == 0)
+		s = ft_strnew_char('0', ft_strlen(*str) + 0);
+	else
+		s = ft_strnew_char('0', ft_strlen(*str) + 1);
 	*str = ft_copy_string_right(*str, s);
 }
 
@@ -47,7 +50,7 @@ void	ft_octal(t_format *lst, uintmax_t arg)
 		ft_itoo(str, arg);
 	}
 	if (ft_chack_flag(lst, '#'))
-		ft_octotorp_octal(&str);
+		ft_octotorp_octal(&str, arg, lst);
 	str_exa = ft_strnew_char('0', lst->exactness);
 	str = ft_copy_string_right(str, str_exa);
 	if (ft_chack_flag(lst, '-'))

@@ -131,14 +131,10 @@ int main()
 xx*/
 	int a = 1;
 	int *b = &a;
-	int n1  = ft_printf("%#.o, %#.0o, %d, %-x, %i, %u", 0, 0, 12, 32, -45, 45);
-	ft_putstr("\n");
-	n1  = ft_printf("%#.o, %#.0o, %d, %-x, %i, %u", 0, 0, 12, 32, -45, 45);
-	ft_putstr("\n");
-	n1  = ft_printf("%#.o, %#.0o, %d, %-x, %i, %u", 0, 0, 12, 32, -45, 45);
+	int n1  = ft_printf("{%05s}", "abc");
 	ft_putstr("\n");
 	ft_putnbr(n1);
-	int n2  = printf("%#.o, %#.0o, %d, %-x, %i, %u", 0, 0, 12, 32, -45, 45);
+	int n2  = printf("{%05s}", "abc");
 	ft_putnbr(n2);
 	ft_putstr("\n");
 

@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:55:47 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/08 10:27:34 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/11 09:15:34 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_octotorp_octal(char **str, uintmax_t arg, t_format *lst)
 {
 	char *s;
 
-	if(arg == 0 && lst->dot == 0)
+	if (arg == 0 && lst->dot == 0)
 		s = ft_strnew_char('0', ft_strlen(*str) + 0);
 	else
 		s = ft_strnew_char('0', ft_strlen(*str) + 1);

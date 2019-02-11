@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew_wchar.c                                  :+:      :+:    :+:   */
+/*   ft_memset_wchar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/07 10:26:56 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/11 13:28:21 by widraugr         ###   ########.fr       */
+/*   Created: 2019/02/11 13:20:17 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/11 13:25:05 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-** Create string type wchar_t
-*/
-
-wchar_t	*ft_strnew_char_wchar(wchar_t c, size_t len)
+void	*ft_memset_wchar(void *b, wchar_t c, size_t len)
 {
-	wchar_t *ptr;
+	wchar_t	*str;
+	size_t	i;
 
-	ptr = ft_strnew_wchar(len);
-	ptr = (wchar_t *)ft_memset_wchar((wchar_t *)ptr, c, len);
-	return (ptr);
+	if (len == 0)
+		return (b);
+	i = 0;
+	str = b;
+	while (i < len)
+	{
+		str[i] = (wchar_t)c;
+		i++;
+	}
+	return (b);
 }

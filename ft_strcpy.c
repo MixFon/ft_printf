@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/04 15:34:50 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/07 15:49:04 by widraugr         ###   ########.fr       */
+/*   Created: 2018/11/27 10:48:49 by widraugr          #+#    #+#             */
+/*   Updated: 2019/02/26 10:37:51 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	char	*str;
-	size_t	len;
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	len = (ft_strlen(s1) + ft_strlen(s2));
-	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
-		return (NULL);
-	while (*(s1 + i))
+	while (src[i] != '\0')
 	{
-		str[i] = *(s1 + i);
+		dst[i] = src[i];
 		i++;
 	}
-	while (*s2)
-	{
-		str[i] = *s2;
-		s2++;
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	dst[i] = '\0';
+	return (dst);
 }

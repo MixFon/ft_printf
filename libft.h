@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 11:19:04 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/11 13:33:34 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:44:00 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,5 @@ wchar_t				*ft_copy_string_right_wchar(wchar_t *str1, wchar_t *str2);
 wchar_t				*ft_copy_string_left_wchar(wchar_t *str1, wchar_t *str2);
 void				ft_putchar_wchar(wchar_t cht);
 void				ft_putstr_wchar(wchar_t const *s);
-void				*ft_memset_wchar(void *b, wchar_t c, size_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: widraugr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:21:00 by widraugr          #+#    #+#             */
-/*   Updated: 2019/02/11 13:33:29 by widraugr         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:24:31 by widraugr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_sourse_wchar(wchar_t **arg, wchar_t **str_wid, int *flag,
 		*arg = ft_strdup_wchar(L"(null)");
 		*flag = 1;
 	}
-	*str_wid = ft_strnew_char_wchar(L' ', lst->width);
+	*str_wid = ft_strnew_char_wchar(' ', lst->width);
 }
 
 /*
@@ -84,7 +84,7 @@ void	ft_wchar_str(t_format *lst, va_list lst_arg)
 		str_exac = ft_strdup_wchar(arg);
 	else
 	{
-		str_exac = ft_strnew_char_wchar(L' ', lst->exactness);
+		str_exac = ft_strnew_char_wchar(' ', lst->exactness);
 		str_exac = ft_strncpy_wchar(str_exac, arg, lst->exactness);
 	}
 	if (ft_chack_flag(lst, '-'))

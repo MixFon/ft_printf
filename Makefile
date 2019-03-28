@@ -6,7 +6,7 @@
 #    By: widraugr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 13:07:44 by widraugr          #+#    #+#              #
-#    Updated: 2019/03/28 09:45:58 by widraugr         ###   ########.fr        #
+#    Updated: 2019/02/08 13:05:48 by widraugr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,10 +114,7 @@ ft_put_decimal.c\
 ft_check_dimension.c\
 ft_read_format.c\
 ft_is_flag_type_size.c\
-ft_check_flag_spetia_type.c\
-ft_memset_wchar.c\
-ft_multi_strdup.c\
-get_next_line.c
+ft_check_flag_spetia_type.c
 
 FILE_O = ft_atoi.o\
 ft_bzero.o\
@@ -219,10 +216,7 @@ ft_put_decimal.o\
 ft_check_dimension.o\
 ft_read_format.o\
 ft_is_flag_type_size.o\
-ft_check_flag_spetia_type.o\
-ft_memset_wchar.o\
-ft_multi_strdup.o\
-get_next_line.o
+ft_check_flag_spetia_type.o
 
 all : $(NAME)
 

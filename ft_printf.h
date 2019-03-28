@@ -60,6 +60,5 @@ int				ft_isflag(char c);
 int				ft_istype(char c);
 int				ft_issize(char c);
 void			ft_check_special_type(char *iter, t_format *lst);
-char			*ft_multi_strdup(int count, ...);
 
 #endif
